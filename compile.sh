@@ -1,3 +1,4 @@
 #!/bin/bash
 
-javac -d out/production $(find src -name "*.java")
+project_path=${0%/*}
+javac -d $project_path/out/production $(find $project_path/src -name "*.java")

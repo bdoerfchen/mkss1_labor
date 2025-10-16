@@ -1,3 +1,4 @@
 #!/bin/bash
 
-cd out/production; java OrderSystemMain
+project_path=${0%/*}
+cd $project_path/out/production; java OrderSystemMain
