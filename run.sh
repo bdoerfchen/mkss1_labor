@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd out/production; java OrderSystemMain
+cd out/production; java hsb.mkss1.ordersystem.OrderSystemMain
