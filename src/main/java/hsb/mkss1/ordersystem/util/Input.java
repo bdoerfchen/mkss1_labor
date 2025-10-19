@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 
 public class Input {
 
+    private Input() {
+    }
+
 	public static boolean readBoolean() {
 		boolean result;
 		try {
@@ -67,20 +70,20 @@ public class Input {
 	}
 
 	// Only for test purposes
-	public static void main(String[] s) {
-		int eingabe = 0;
-		while(eingabe != -1) {
-			System.out.print("Enter text: ");
-			System.out.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readString());
-			System.out.print("Enter float: ");
-			System.out.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readFloat());
-			System.out.print("Enter double: ");
-			System.out.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readDouble());
-			System.out.print("Enter boolean: ");
-			System.out.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readBoolean());
-			System.out.print("Enter integer number (Cancel with -1): ");
-			eingabe = Input.readInt();
-			System.out.println("hsb.mkss1.ordersystem.util.Input was: " + eingabe);
+	static void main() {
+		int input = 0;
+		while(input != -1) {
+			IO.print("Enter text: ");
+			IO.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readString());
+			IO.print("Enter float: ");
+			IO.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readFloat());
+			IO.print("Enter double: ");
+			IO.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readDouble());
+			IO.print("Enter boolean: ");
+			IO.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readBoolean());
+			IO.print("Enter integer number (Cancel with -1): ");
+			input = Input.readInt();
+			IO.println("hsb.mkss1.ordersystem.util.Input was: " + input);
 		}
 	}
 }

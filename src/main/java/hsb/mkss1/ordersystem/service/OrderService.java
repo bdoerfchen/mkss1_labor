@@ -3,16 +3,20 @@ package hsb.mkss1.ordersystem.service;
 import hsb.mkss1.ordersystem.model.Product;
 import hsb.mkss1.ordersystem.model.Service;
 import hsb.mkss1.ordersystem.util.Input;
+import hsb.mkss1.ordersystem.util.StringFormatterUtil;
 
 public class OrderService {
 
-	private Product[] products = new Product[5];
-	private Service[] services = new Service[5];
+    private static final int MAX_PRODUCT_COUNT = 5;
+    private static final int MAX_SERVICES_COUNT = 5;
+
+	private Product[] products = new Product[MAX_PRODUCT_COUNT];
+	private Service[] services = new Service[MAX_SERVICES_COUNT];
 
 	int productIndex = 0;
 	int serviceIndex = 0;
 
-	public void menuloop() {
+	public void runMenuLoop() {
         while (true) {
             int input;
             do {
@@ -28,10 +32,10 @@ public class OrderService {
                         orderService(serviceIndex++);
                         break;
                     default:
-                        System.out.println("invalid");
+                        IO.println("invalid");
                         break;
                 }
-            } while (input != 0 && (productIndex < 5) && serviceIndex < 5);
+            } while (input != 0 && (productIndex < MAX_PRODUCT_COUNT) && serviceIndex < MAX_SERVICES_COUNT);
             sortProducts();
             sortServices();
             finishOrder();
@@ -41,20 +45,20 @@ public class OrderService {
 	}
 
     private void clearProducts() {
-        products = new Product[5];
+        products = new Product[MAX_PRODUCT_COUNT];
         productIndex = 0;
     }
 
     private void clearServices() {
-        services = new Service[5];
+        services = new Service[MAX_SERVICES_COUNT];
         serviceIndex = 0;
     }
 
     private void printMenu() {
-		System.out.println("Your choice?");
-		System.out.println("(0) Finish order");
-		System.out.println("(1) Order product");
-		System.out.println("(2) Order service");
+		IO.println("Your choice?");
+		IO.println("(0) Finish order");
+		IO.println("(1) Order product");
+		IO.println("(2) Order service");
 	}
 	
 	private void sortProducts() {
@@ -81,21 +85,21 @@ public class OrderService {
 		}
 	}
 	private void orderProduct(int index) {
-		System.out.println("Name: ");
+		IO.println("Name: ");
 		String l = Input.readString();
-		System.out.println("Unit price (in cents): ");
+		IO.println("Unit price (in cents): ");
 		int p = Input.readInt();
-		System.out.println("Quantity: ");
+		IO.println("Quantity: ");
 		int s = Input.readInt();
 		products[index] = new Product(l, p, s) ;
 	}
 	
 	private void orderService(int index) {
-		System.out.println("hsb.mkss1.ordersystem.model.Service type: ");
+		IO.println("hsb.mkss1.ordersystem.model.Service type: ");
 		String l = Input.readString();
-		System.out.println("Number of persons: ");
+		IO.println("Number of persons: ");
 		int p = Input.readInt();
-		System.out.println("Hours: ");
+		IO.println("Hours: ");
 		int s = Input.readInt();
 		services[index] = new Service(l, p, s) ;
 	}
@@ -104,22 +108,17 @@ public class OrderService {
 		int sum = 0;
 		for (int i = 0; i < products.length; i++) {
 			if (products[i] != null) {
-				System.out.println(products[i] + " = " + formatPrice(products[i].getPrice()));
+				IO.println(products[i] + " = " + StringFormatterUtil.formatPrice(products[i].getPrice()));
 				sum += products[i].getPrice();
 			}
 		}
 		for (int i = 0; i < services.length; i++) {
 			if (services[i] != null) {
-				services[i].print();
-				System.out.println(" = " + formatPrice(services[i].getPrice()));
+				IO.println(services[i]);
+                IO.println(" = " + StringFormatterUtil.formatPrice(services[i].getPrice()));
 				sum += services[i].getPrice();
 			}
 		}
-		System.out.println("Sum: "+ formatPrice(sum));
-	}
-
-	private String formatPrice(int priceInCent) {
-		return (priceInCent / 100) + "." + (priceInCent % 100 < 10 ? "0" : "")
-			+ priceInCent % 100 + " EUR";
+		IO.println("Sum: "+ StringFormatterUtil.formatPrice(sum));
 	}
 }

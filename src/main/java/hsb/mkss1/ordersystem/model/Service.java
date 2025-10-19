@@ -1,25 +1,16 @@
 package hsb.mkss1.ordersystem.model;
 
-public class Service {
+public record Service(String name, int persons, int hours) {
 
-	private String name;
-	private int hours, persons;
+    private static final int PRICE_PER_PERSON_HOUR = 1242;
 
-	public Service(String n, int p, int s) {
-		name = n;
-		hours = s;
-		persons = p;
-	}
 
-	public String getName() {
-		return name;
-	}
+    public int getPrice() {
+        return PRICE_PER_PERSON_HOUR * hours * persons;
+    }
 
-	public int getPrice() {
-		return 1242 * hours * persons;
-	}
-
-	public void print() {
-		System.out.println(persons + " persons for " + hours + "h of " + getName());
-	}
+    @Override
+    public String toString() {
+        return persons + " persons for " + hours + "h of " + name();
+    }
 }
