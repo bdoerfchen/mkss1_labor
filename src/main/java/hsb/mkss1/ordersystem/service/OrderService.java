@@ -13,23 +13,44 @@ public class OrderService {
 	int serviceIndex = 0;
 
 	public void menuloop() {
-		int input;
-		do {
-			printMenu();
-			input = Input.readInt();
-			switch ( input ) {
-				case 0: break ;
-				case 1: orderProduct(productIndex++); break ;
-				case 2: orderService(serviceIndex++); break ;
-				default: System.out.println("invalid" ); break ;
-			}
-		} while( input != 0 && (productIndex < 5) && serviceIndex < 5);
-		sortProducts();
-		sortServices();
-		finishOrder() ;
+        while (true) {
+            int input;
+            do {
+                printMenu();
+                input = Input.readInt();
+                switch (input) {
+                    case 0:
+                        break;
+                    case 1:
+                        orderProduct(productIndex++);
+                        break;
+                    case 2:
+                        orderService(serviceIndex++);
+                        break;
+                    default:
+                        System.out.println("invalid");
+                        break;
+                }
+            } while (input != 0 && (productIndex < 5) && serviceIndex < 5);
+            sortProducts();
+            sortServices();
+            finishOrder();
+            clearProducts();
+            clearServices();
+        }
 	}
-	
-	private void printMenu() {
+
+    private void clearProducts() {
+        products = new Product[5];
+        productIndex = 0;
+    }
+
+    private void clearServices() {
+        services = new Service[5];
+        serviceIndex = 0;
+    }
+
+    private void printMenu() {
 		System.out.println("Your choice?");
 		System.out.println("(0) Finish order");
 		System.out.println("(1) Order product");
