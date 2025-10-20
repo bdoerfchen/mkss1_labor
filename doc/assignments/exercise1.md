@@ -13,11 +13,12 @@
 10. Method names should be verbs (menuLoop -> runMenuLoop)
 11. Service: 
     - Fixed hour price as magic number
-    - Variable names in constructor
-    - Split variables into one line each
-    - Class variables can be final
+    - Parameter names in constructor
+    - Split field declarations into one line each
+    - Fields can be final
+    - Print method out of place
 12. Product:
-    - Class variables can be final
+    - Fields can be final
 13. Product - Order too mixed
 
 

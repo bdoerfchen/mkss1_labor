@@ -7,10 +7,10 @@ public class OrderSystemMain {
     }
 
     @SuppressWarnings("java:S2189")
-	static void main() {
-		OrderService orderService = new OrderService();
+    static void main() {
+        OrderService orderService = new OrderService();
         while (true) {
             orderService.runMenuLoop();
         }
-	}
+    }
 }

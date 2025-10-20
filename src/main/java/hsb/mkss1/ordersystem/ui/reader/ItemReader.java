@@ -4,5 +4,6 @@ import hsb.mkss1.ordersystem.model.Item;
 
 public interface ItemReader {
     Item readItem();
+
     String getPromptText();
 }

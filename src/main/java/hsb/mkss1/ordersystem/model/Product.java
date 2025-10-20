@@ -16,6 +16,7 @@ public class Product extends Item {
         return quantity;
     }
 
+    @Override
     public int getPrice() {
         return unitPrice * quantity;
     }

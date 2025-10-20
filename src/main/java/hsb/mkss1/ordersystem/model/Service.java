@@ -22,6 +22,7 @@ public class Service extends Item {
         return hours;
     }
 
+    @Override
     public int getPrice() {
         return PRICE_PER_PERSON_HOUR * hours * persons;
     }

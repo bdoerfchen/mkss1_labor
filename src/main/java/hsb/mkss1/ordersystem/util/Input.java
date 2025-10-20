@@ -1,8 +1,6 @@
 package hsb.mkss1.ordersystem.util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.IOError;
 
 
 public class Input {
@@ -10,80 +8,77 @@ public class Input {
     private Input() {
     }
 
-	public static boolean readBoolean() {
-		boolean result;
-		try {
-			result = Boolean.parseBoolean(readString());
-		} catch(NumberFormatException e) {
-			result = false;
-		}
+    public static boolean readBoolean() {
+        boolean result;
+        try {
+            result = Boolean.parseBoolean(readString());
+        } catch (NumberFormatException _) {
+            result = false;
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	public static double readDouble() {
-		double result;
-		try {
-			result = Double.parseDouble(readString());
-		} catch(NumberFormatException e) {
-			result = 0d;
-		}
+    public static double readDouble() {
+        double result;
+        try {
+            result = Double.parseDouble(readString());
+        } catch (NumberFormatException _) {
+            result = 0d;
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	public static float readFloat() {
-		float result;
-		try {
-			result = Float.parseFloat(readString());
-		}
-		catch(NumberFormatException e) {
-			result = 0f;
-		}
+    public static float readFloat() {
+        float result;
+        try {
+            result = Float.parseFloat(readString());
+        } catch (NumberFormatException _) {
+            result = 0f;
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	public static int readInt() {
-		int result = 0;
-		String v = null;
-		try {
-			v = readString();
-			result = Integer.decode(v);
-		} catch(NumberFormatException e) {
-			return 0;
-		}
+    public static int readInt() {
+        int result;
+        try {
+            result = Integer.parseInt(readString());
+        } catch (NumberFormatException _) {
+            result = 0;
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	public static String readString() {
-		String result;
+    public static String readString() {
+        String result;
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			result = in.readLine();
-		} catch(IOException e) {
-			result = "";
-		}
-		return result;
-	}
+        try {
+            result = IO.readln();
+        } catch (IOError _) {
+            result = "";
+        }
+        return result;
+    }
 
-	// Only for test purposes
-	static void main() {
-		int input = 0;
-		while(input != -1) {
-			IO.print("Enter text: ");
-			IO.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readString());
-			IO.print("Enter float: ");
-			IO.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readFloat());
-			IO.print("Enter double: ");
-			IO.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readDouble());
-			IO.print("Enter boolean: ");
-			IO.println("hsb.mkss1.ordersystem.util.Input was:" + Input.readBoolean());
-			IO.print("Enter integer number (Cancel with -1): ");
-			input = Input.readInt();
-			IO.println("hsb.mkss1.ordersystem.util.Input was: " + input);
-		}
-	}
+    // Only for test purposes
+    static void main() {
+        int input = 0;
+        String outputText = "Input was: ";
+        while (input != -1) {
+            IO.print("Enter text: ");
+            IO.println(outputText + Input.readString());
+            IO.print("Enter float: ");
+            IO.println(outputText + Input.readFloat());
+            IO.print("Enter double: ");
+            IO.println(outputText + Input.readDouble());
+            IO.print("Enter boolean: ");
+            IO.println(outputText + Input.readBoolean());
+            IO.print("Enter integer number (Cancel with -1): ");
+            input = Input.readInt();
+            IO.println(outputText + input);
+        }
+    }
 }

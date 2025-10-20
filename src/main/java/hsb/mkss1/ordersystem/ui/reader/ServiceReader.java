@@ -7,12 +7,12 @@ public class ServiceReader implements ItemReader {
     @Override
     public Service readItem() {
         IO.println("Service type: ");
-        String l = Input.readString();
+        String serviceType = Input.readString();
         IO.println("Number of persons: ");
-        int p = Input.readInt();
+        int persons = Input.readInt();
         IO.println("Hours: ");
-        int s = Input.readInt();
-        return new Service(l, p, s) ;
+        int hours = Input.readInt();
+        return new Service(serviceType, persons, hours);
     }
 
     @Override
