@@ -1,32 +1,47 @@
 package hsb.mkss1.universalremotecontrol.remotecontrol;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  *  Base implementation for the remote control.
  */
 public class RemoteControl implements IRemoteControl {
 
-    public final static int NO_OF_ACTION_BUTTONS = 3;
+    public static final int NO_OF_ACTION_BUTTONS = 3;
 
-    // TODO: Data structure(s) for the action buttons
-    // TODO: Data structure(s) for the undo button / history
+    private final ActionButton[] buttons = new ActionButton[NO_OF_ACTION_BUTTONS];
 
-    public RemoteControl() {
-        // TODO: Initialize data structures for the action buttons
-        // TODO: Initialize data structures for the undo button / history
+    private final Deque<Integer> history = new ArrayDeque<>();
+
+
+    @Override
+    public void configureButton(int buttonNumber, ICommand command) {
+        if (buttonNumber < NO_OF_ACTION_BUTTONS && buttonNumber >= 0) {
+            buttons[buttonNumber] = new ActionButton(command);
+        }
     }
-
-    // TODO: Implement method for configuration of action buttons (cf. TODO in interface IRemoteControl)
 
     /**
      * The action button was pressed.
      * Depending on its status, it will execute an activate or deactivate action.
      *
-     * @param no The number of the button.
+     * @param buttonNumber The number of the button.
      */
     @Override
-    public void actionButtonPressed(int no) {
-        // TODO: Execute action according to button status
-        // TODO: Update undo button / history
+    public void actionButtonPressed(int buttonNumber) {
+        if (buttonNumber < NO_OF_ACTION_BUTTONS && buttonNumber >= 0) {
+          ActionButton button = buttons[buttonNumber];
+          if (button != null) {
+              button.invoke();
+              history.push(buttonNumber);
+          }
+          else {
+              IO.println("ERROR: Button not configured!");
+          }
+        } else {
+            IO.println("ERROR: Invalid button number!");
+        }
     }
 
     /**
@@ -35,6 +50,10 @@ public class RemoteControl implements IRemoteControl {
      */
     @Override
     public void undoButtonPressed() {
-        // TODO: Execute undo action
+        if (!history.isEmpty()) {
+            int buttonNumber = history.pop();
+            buttons[buttonNumber].invoke();
+        }
+
     }
 }
