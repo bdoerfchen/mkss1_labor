@@ -1,6 +1,6 @@
 package hsb.mkss1.ordersystem.model;
 
-public class Service extends Item {
+public class SimpleService extends AbstractService {
 
     private final int persons;
 
@@ -8,16 +8,18 @@ public class Service extends Item {
 
     private static final int PRICE_PER_PERSON_HOUR = 1242;
 
-    public Service(String name, int persons, int hours) {
+    public SimpleService(String name, int persons, int hours) {
         super(name);
         this.persons = persons;
         this.hours = hours;
     }
 
+    @Override
     public int getPersons() {
         return persons;
     }
 
+    @Override
     public int getHours() {
         return hours;
     }
@@ -28,3 +30,4 @@ public class Service extends Item {
     }
 
 }
+

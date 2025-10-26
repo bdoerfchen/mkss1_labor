@@ -7,7 +7,7 @@ public abstract class Item {
         this.name = name;
     }
 
-    abstract int getPrice();
+    public abstract int getPrice();
 
     public String getName() {
         return name;

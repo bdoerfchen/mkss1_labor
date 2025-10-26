@@ -1,24 +1,32 @@
 package hsb.mkss1.ordersystem.model;
 
-public class Product extends Item {
+public class SimpleProduct extends AbstractProduct {
+
+
 
     private final int unitPrice;
 
     private final int quantity;
 
-    public Product(String name, int unitPrice, int quantity) {
+
+    public SimpleProduct(String name, int unitPrice, int quantity) {
         super(name);
         this.unitPrice = unitPrice;
         this.quantity = quantity;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
 
     @Override
     public int getPrice() {
         return unitPrice * quantity;
     }
 
+    @Override
+    public int getQuantity()
+    {
+        return quantity;
+    }
 }
+
+
+

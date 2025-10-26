@@ -1,13 +1,13 @@
 package hsb.mkss1.ordersystem.ui.writer;
 
-import hsb.mkss1.ordersystem.model.Service;
+import hsb.mkss1.ordersystem.model.AbstractService;
 import hsb.mkss1.ordersystem.util.StringFormatterUtil;
 
-public class ServiceWriter implements ItemWriter<Service> {
+public class ServiceWriter implements ItemWriter<AbstractService> {
 
     @Override
-    public void writeItem(Service service) {
-        IO.println(service.getPersons() + " persons for " + service.getHours() + "h of " + service.getName());
+    public void writeItem(AbstractService service) {
+        IO.print(service.getPersons() + " persons for " + service.getHours() + "h of " + service.getName());
         IO.println(" = " + StringFormatterUtil.formatPrice(service.getPrice()));
     }
 }
