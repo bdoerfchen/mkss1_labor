@@ -30,17 +30,18 @@ public class RemoteControl implements IRemoteControl {
      */
     @Override
     public void actionButtonPressed(int buttonNumber) {
-        if (buttonNumber < NO_OF_ACTION_BUTTONS && buttonNumber >= 0) {
-          ActionButton button = buttons[buttonNumber];
-          if (button != null) {
-              button.invoke();
-              history.push(buttonNumber);
-          }
-          else {
-              IO.println("ERROR: Button not configured!");
-          }
+        if (buttonNumber >= NO_OF_ACTION_BUTTONS || buttonNumber < 0) {
+            IO.println("ERROR: Invalid button number: " + buttonNumber);
+            return;
+        }
+
+        ActionButton button = buttons[buttonNumber];
+
+        if (button != null) {
+            button.invoke();
+            history.push(buttonNumber);
         } else {
-            IO.println("ERROR: Invalid button number!");
+            IO.println("ERROR: Button " + buttonNumber + " not configured!");
         }
     }
 
