@@ -5,7 +5,8 @@ package hsb.mkss1.universalremotecontrol.remotecontrol;
  */
 public interface IRemoteControl {
 
-    // TODO: Method for configuration of action buttons with behaviour
+
+    void configureButton(int buttonNumber, ICommand command);
 
     /**
      * The action button was pressed.
