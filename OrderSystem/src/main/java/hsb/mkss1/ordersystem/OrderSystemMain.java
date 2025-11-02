@@ -2,7 +2,7 @@ package hsb.mkss1.ordersystem;
 
 import hsb.mkss1.ordersystem.persistence.InMemoryOrderRepo;
 import hsb.mkss1.ordersystem.persistence.OrderRepo;
-import hsb.mkss1.ordersystem.service.OrderController;
+import hsb.mkss1.ordersystem.service.OrderService;
 import hsb.mkss1.ordersystem.ui.OrderUI;
 import hsb.mkss1.ordersystem.service.SimpleItemFactory;
 import hsb.mkss1.ordersystem.ui.reader.SimpleProductReader;
@@ -15,11 +15,11 @@ public class OrderSystemMain {
 
     static void main() {
         OrderRepo repo = new InMemoryOrderRepo();
-        OrderUI ui = new OrderUI(repo);
+        OrderUI ui = new OrderUI();
         ui.setItemFactory(new SimpleItemFactory());
         ui.setProductReader(new SimpleProductReader());
         ui.setServiceReader(new SimpleServiceReader());
-        ui.setOrderController(new OrderController());
+        ui.setOrderController(new OrderService(repo));
         ui.runMenuLoop();
     }
 }
