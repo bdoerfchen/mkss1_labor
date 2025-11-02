@@ -22,10 +22,16 @@ public class SimpleProduct extends AbstractProduct {
     }
 
     @Override
+    public SimpleProduct createCopy() {
+        return new SimpleProduct(getName(), unitPrice, quantity);
+    }
+
+    @Override
     public int getQuantity()
     {
         return quantity;
     }
+
 }
 
 

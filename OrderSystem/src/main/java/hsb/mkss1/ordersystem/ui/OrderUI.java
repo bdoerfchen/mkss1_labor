@@ -4,6 +4,7 @@ import hsb.mkss1.ordersystem.model.Item;
 import hsb.mkss1.ordersystem.model.Order;
 import hsb.mkss1.ordersystem.model.SimpleProduct;
 import hsb.mkss1.ordersystem.model.SimpleService;
+import hsb.mkss1.ordersystem.persistence.OrderRepo;
 import hsb.mkss1.ordersystem.service.ItemFactory;
 import hsb.mkss1.ordersystem.service.OrderController;
 import hsb.mkss1.ordersystem.ui.reader.IProductReader;
@@ -22,6 +23,9 @@ public class OrderUI {
     private IProductReader productReader;
     private IServiceReader serviceReader;
     private OrderController orderController;
+    private final OrderRepo orderRepo;
+
+
 
 
     private final Map<Class<? extends Item>, ItemWriter<? extends Item>> itemWriters = Map.of(
@@ -29,10 +33,16 @@ public class OrderUI {
             SimpleService.class, new ServiceWriter()
     );
 
+    public OrderUI(OrderRepo orderRepo) {
+        this.orderRepo = orderRepo;
+    }
+
     @SuppressWarnings("java:S2189")
     public void runMenuLoop() {
-        while (true) {
+        boolean run = true;
+        while (run) {
             Order order = orderController.initializeOrder();
+            orderRepo.save(order);
             int input;
             do {
                 printMenu();
@@ -44,13 +54,19 @@ public class OrderUI {
                 };
                 if (item != null) {
                     orderController.addItemToOrder(order, item);
+                    orderRepo.save(order);
                 } else if (input != 0) {
                     IO.println("invalid");
                 }
             } while (input != 0);
             orderController.finalizeOrder(order);
+            orderRepo.save(order);
             printOrder(order);
+            IO.println("Would you like to make another order? (true | false)");
+            run = Input.readBoolean();
         }
+
+        orderRepo.findAll().forEach(this::printOrder);
     }
 
     private void printMenu() {

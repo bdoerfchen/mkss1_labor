@@ -7,6 +7,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Order {
+
+    private Integer id;
     private final List<Item> items = new ArrayList<>();
     private LocalDateTime checkoutTimestamp;
     private int lumpSum = 0;
@@ -16,6 +18,14 @@ public class Order {
             items.add(item);
             lumpSum += item.getPrice();
         }
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public List<Item> getItems() {
@@ -36,5 +46,14 @@ public class Order {
 
     public int getLumpSum() {
         return this.lumpSum;
+    }
+
+    public Order createCopy() {
+        Order copy = new Order();
+        items.stream().map(Item::createCopy).forEach(copy::addItem);
+        copy.setId(id);
+        copy.setCheckoutTimestamp(checkoutTimestamp);
+
+        return copy;
     }
 }
