@@ -29,5 +29,10 @@ public class SimpleService extends AbstractService {
         return PRICE_PER_PERSON_HOUR * hours * persons;
     }
 
+    @Override
+    public Item createCopy() {
+        return new SimpleService(getName(), persons, hours);
+    }
+
 }
 
