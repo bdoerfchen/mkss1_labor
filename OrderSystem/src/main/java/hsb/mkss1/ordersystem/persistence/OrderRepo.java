@@ -5,7 +5,6 @@ import hsb.mkss1.ordersystem.model.Order;
 import java.util.List;
 import java.util.Optional;
 
-//@JpaRepository
 public interface OrderRepo {
     void save(Order order);
     void remove(Order order);
