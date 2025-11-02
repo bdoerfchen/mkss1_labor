@@ -28,7 +28,6 @@ public class OrderUI {
             SimpleService.class, new ServiceWriter()
     );
 
-    @SuppressWarnings("java:S2189")
     public void runMenuLoop() {
         boolean run = true;
         while (run) {
