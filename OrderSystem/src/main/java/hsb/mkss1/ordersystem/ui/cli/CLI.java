@@ -1,4 +1,4 @@
-package hsb.mkss1.ordersystem.ui;
+package hsb.mkss1.ordersystem.ui.cli;
 
 import hsb.mkss1.ordersystem.model.Item;
 import hsb.mkss1.ordersystem.model.Order;
@@ -6,17 +6,18 @@ import hsb.mkss1.ordersystem.model.SimpleProduct;
 import hsb.mkss1.ordersystem.model.SimpleService;
 import hsb.mkss1.ordersystem.service.ItemFactory;
 import hsb.mkss1.ordersystem.service.OrderService;
-import hsb.mkss1.ordersystem.ui.reader.IProductReader;
-import hsb.mkss1.ordersystem.ui.reader.IServiceReader;
-import hsb.mkss1.ordersystem.ui.writer.ItemWriter;
-import hsb.mkss1.ordersystem.ui.writer.ProductWriter;
-import hsb.mkss1.ordersystem.ui.writer.ServiceWriter;
+import hsb.mkss1.ordersystem.ui.OrderUserInterface;
+import hsb.mkss1.ordersystem.ui.cli.reader.IProductReader;
+import hsb.mkss1.ordersystem.ui.cli.reader.IServiceReader;
+import hsb.mkss1.ordersystem.ui.cli.writer.ItemWriter;
+import hsb.mkss1.ordersystem.ui.cli.writer.ProductWriter;
+import hsb.mkss1.ordersystem.ui.cli.writer.ServiceWriter;
 import hsb.mkss1.ordersystem.util.Input;
 import hsb.mkss1.ordersystem.util.StringFormatterUtil;
 
 import java.util.Map;
 
-public class OrderUI {
+public class CLI implements OrderUserInterface {
 
     private ItemFactory itemFactory;
     private IProductReader productReader;
@@ -28,7 +29,7 @@ public class OrderUI {
             SimpleService.class, new ServiceWriter()
     );
 
-    public void runMenuLoop() {
+    public void open() {
         boolean run = true;
         while (run) {
             Order order = orderService.initializeOrder();
@@ -92,7 +93,7 @@ public class OrderUI {
         this.productReader = productReader;
     }
 
-    public void setOrderController(OrderService orderService) {
+    public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
     }
 }

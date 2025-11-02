@@ -1,0 +1,46 @@
+<mxfile host="drawio-plugin" modified="2025-11-02T15:34:13.411Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" version="22.1.22" etag="Mj9QSgMauq3Qy7pWtHzv" type="embed">
+  <diagram id="2rplvb6z-T83pBYxxWjg" name="Page-1">
+    <mxGraphModel dx="995" dy="443" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="3" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="80" width="390" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Add Service" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="240" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="Add Product" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="240" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="Finish" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="515" y="290" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="18" value="200€ - Joghurt (2000x à 0,10€)&lt;br&gt;100€ - Putzen (4h x 5 Persons)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="270" y="100" width="350" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="19" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="360" width="390" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="22" value="Start new order" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="590" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="23" value="200€ - Joghurt (2000x à 0,10€)&lt;br&gt;100€ - Putzen (4h x 5 Persons)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="270" y="380" width="350" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="24" value="Total: 300€" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="270" y="520" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="25" value="Checkout date: 02.11.2025" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="270" y="540" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="26" value="Exit" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="590" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="27" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="690" y="80" width="170" height="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

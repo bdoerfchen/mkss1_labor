@@ -1,4 +1,4 @@
-package hsb.mkss1.ordersystem.ui.writer;
+package hsb.mkss1.ordersystem.ui.cli.writer;
 
 import hsb.mkss1.ordersystem.model.AbstractProduct;
 import hsb.mkss1.ordersystem.util.StringFormatterUtil;
