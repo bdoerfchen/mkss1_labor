@@ -1,4 +1,4 @@
-package hsb.mkss1.ordersystem.ui;
+package hsb.mkss1.ordersystem.ui.cli;
 
 import hsb.mkss1.ordersystem.model.Item;
 import hsb.mkss1.ordersystem.model.Order;
@@ -6,29 +6,28 @@ import hsb.mkss1.ordersystem.model.SimpleProduct;
 import hsb.mkss1.ordersystem.model.SimpleService;
 import hsb.mkss1.ordersystem.service.ItemFactory;
 import hsb.mkss1.ordersystem.service.OrderService;
-import hsb.mkss1.ordersystem.ui.reader.IProductReader;
-import hsb.mkss1.ordersystem.ui.reader.IServiceReader;
+import hsb.mkss1.ordersystem.ui.OrderUserInterface;
+import hsb.mkss1.ordersystem.ui.cli.reader.IProductReader;
+import hsb.mkss1.ordersystem.ui.cli.reader.IServiceReader;
+import hsb.mkss1.ordersystem.ui.writer.AvailableWriters;
 import hsb.mkss1.ordersystem.ui.writer.ItemWriter;
 import hsb.mkss1.ordersystem.ui.writer.ProductWriter;
 import hsb.mkss1.ordersystem.ui.writer.ServiceWriter;
 import hsb.mkss1.ordersystem.util.Input;
 import hsb.mkss1.ordersystem.util.StringFormatterUtil;
 
+import java.util.Comparator;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-public class OrderUI {
+public class CLI implements OrderUserInterface {
 
     private ItemFactory itemFactory;
     private IProductReader productReader;
     private IServiceReader serviceReader;
     private OrderService orderService;
 
-    private final Map<Class<? extends Item>, ItemWriter<? extends Item>> itemWriters = Map.of(
-            SimpleProduct.class, new ProductWriter(),
-            SimpleService.class, new ServiceWriter()
-    );
-
-    public void runMenuLoop() {
+    public void open() {
         boolean run = true;
         while (run) {
             Order order = orderService.initializeOrder();
@@ -48,7 +47,6 @@ public class OrderUI {
                 }
             } while (input != 0);
             orderService.finalizeOrder(order);
-            order.sort();
             printOrder(order);
             IO.println("Would you like to make another order? (true | false)");
             run = Input.readBoolean();
@@ -66,18 +64,16 @@ public class OrderUI {
 
     private void printOrder(Order order) {
         IO.println("-----------------------");
-        for (Item item : order.getItems()) {
-            getItemWriter(item.getClass()).writeItem(item);
-        }
+        var outputText = order.getItems().stream()
+                .sorted(Comparator.comparingInt(Item::getPrice))
+                .map(item -> AvailableWriters.getItemWriter(item.getClass()).writeItem(item))
+                .collect(Collectors.joining(System.lineSeparator()));
+        IO.println(outputText);
         IO.println("-----------------------");
-        IO.println("Sum: " + StringFormatterUtil.formatPrice(order.getLumpSum()));
+        IO.println("Total price: " + StringFormatterUtil.formatPrice(order.getLumpSum()));
+        IO.println("Checkout date: " + StringFormatterUtil.formatDate(order.getCheckoutTimestamp()));
         IO.println("=======================");
         IO.println("");
-    }
-
-    @SuppressWarnings("unchecked")
-    private ItemWriter<Item> getItemWriter(Class<? extends Item> clazz) {
-        return (ItemWriter<Item>) itemWriters.get(clazz);
     }
 
     public void setItemFactory(ItemFactory itemFactory) {
@@ -92,7 +88,7 @@ public class OrderUI {
         this.productReader = productReader;
     }
 
-    public void setOrderController(OrderService orderService) {
+    public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
     }
 }

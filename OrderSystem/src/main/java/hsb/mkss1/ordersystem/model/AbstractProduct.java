@@ -9,6 +9,7 @@ public abstract class AbstractProduct extends Item {
     }
 
     public abstract int getQuantity();
+    public abstract int getUnitPrice();
 
     
 

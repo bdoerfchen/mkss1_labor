@@ -6,8 +6,12 @@ import hsb.mkss1.ordersystem.util.StringFormatterUtil;
 public class ProductWriter implements ItemWriter<AbstractProduct> {
 
     @Override
-    public void writeItem(AbstractProduct product) {
-        IO.print(product.getQuantity() + " * " + product.getName());
-        IO.println(" = " + StringFormatterUtil.formatPrice(product.getPrice()));
+    public String writeItem(AbstractProduct product) {
+        return "%15s - %s (%dx à %s)".formatted(
+                StringFormatterUtil.formatPrice(product.getPrice()),
+                product.getName(),
+                product.getQuantity(),
+                StringFormatterUtil.formatPrice(product.getUnitPrice())
+        );
     }
 }

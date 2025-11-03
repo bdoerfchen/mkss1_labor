@@ -1,5 +1,9 @@
 package hsb.mkss1.ordersystem.util;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class StringFormatterUtil {
 
     private StringFormatterUtil() {
@@ -10,5 +14,10 @@ public class StringFormatterUtil {
         int cent = priceInCent % 100;
 
         return "%d.%02d EUR".formatted(euro, cent);
+    }
+
+    public static String formatDate(LocalDateTime dateTime) {
+        var format = DateTimeFormatter.ofPattern("dd. MMMM yyyy HH:mm:ss", Locale.GERMAN);
+        return dateTime.format(format);
     }
 }

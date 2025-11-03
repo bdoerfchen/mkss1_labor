@@ -6,8 +6,12 @@ import hsb.mkss1.ordersystem.util.StringFormatterUtil;
 public class ServiceWriter implements ItemWriter<AbstractService> {
 
     @Override
-    public void writeItem(AbstractService service) {
-        IO.print(service.getPersons() + " persons for " + service.getHours() + "h of " + service.getName());
-        IO.println(" = " + StringFormatterUtil.formatPrice(service.getPrice()));
+    public String writeItem(AbstractService service) {
+        return "%15s - %s (%dh x %d Persons)".formatted(
+                StringFormatterUtil.formatPrice(service.getPrice()),
+                service.getName(),
+                service.getHours(),
+                service.getPersons()
+        );
     }
 }
