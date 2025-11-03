@@ -2,15 +2,18 @@ package hsb.mkss1.ordersystem.ui.gui;
 
 import hsb.mkss1.ordersystem.model.Item;
 import hsb.mkss1.ordersystem.model.Order;
-import hsb.mkss1.ordersystem.model.dtos.ServiceDTO;
 import hsb.mkss1.ordersystem.service.ItemFactory;
 import hsb.mkss1.ordersystem.service.OrderService;
+import hsb.mkss1.ordersystem.ui.writer.AvailableWriters;
+import hsb.mkss1.ordersystem.ui.writer.ItemWriter;
 import hsb.mkss1.ordersystem.util.StringFormatterUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Locale;
 
 public class OrderWindow extends JFrame {
 
@@ -19,7 +22,12 @@ public class OrderWindow extends JFrame {
 
     private final Order order;
 
-    JTextArea itemArea;
+    // UI references
+    private JTextArea itemArea;
+    private JPanel panelButtons;
+    private JPanel panelFinished;
+    private JLabel labelTotalPrice;
+    private JLabel labelCheckoutDate;
 
     private void build() {
         setTitle("Order");
@@ -34,47 +42,77 @@ public class OrderWindow extends JFrame {
 
         // TextArea
         itemArea = new JTextArea();
-        itemArea.setText("Hello");
+        itemArea.setText("No items added yet");
         itemArea.setEnabled(false);
         itemArea.setDisabledTextColor(Color.BLACK);
 
         // Button panel
-        JPanel panelButtons = new JPanel();
+        panelButtons = new JPanel();
         panelButtons.setLayout(new FlowLayout());
 
         // Create buttons
         JButton buttonAddService = new JButton("Add Service");
-        buttonAddService.addActionListener(e -> {
+        buttonAddService.addActionListener(_ ->
             new InputServiceWindow().openAndNotify(s -> {
                 var service = itemFactory.createService(s);
                 orderService.addItemToOrder(order, service);
                 updateItemDisplay();
-            });
-        });
+            })
+        );
         JButton buttonAddProduct = new JButton("Add Product");
-        buttonAddProduct.addActionListener(e -> {
+        buttonAddProduct.addActionListener(_ ->
             new InputProductWindow().openAndNotify(p -> {
                 var product = itemFactory.createProduct(p);
                 orderService.addItemToOrder(order, product);
                 updateItemDisplay();
-            });
-        });
+            })
+        );
         JButton buttonFinish = new JButton("Finish");
+        buttonFinish.addActionListener(_ -> onFinishOrder());
         panelButtons.add(buttonAddService);
         panelButtons.add(buttonAddProduct);
         panelButtons.add(buttonFinish);
 
+        // Finish panel
+        panelFinished = new JPanel();
+        panelFinished.setVisible(false); // Not shown before finished
+        panelFinished.setLayout(new BoxLayout(panelFinished, BoxLayout.Y_AXIS));
+        labelTotalPrice = new JLabel("Total:");
+        panelFinished.add(labelTotalPrice);
+        labelCheckoutDate = new JLabel("Checkout Date:");
+        panelFinished.add(labelCheckoutDate);
+
+        JPanel panelFinishedButtons = new JPanel();
+        JButton buttonClose = new JButton("Close");
+        buttonClose.addActionListener(_ -> this.dispose());
+        panelFinishedButtons.add(buttonClose);
+        JButton buttonNewOrder = new JButton("New Order");
+        buttonNewOrder.addActionListener(_ -> {
+            new OrderWindow(itemFactory, orderService).setVisible(true);
+            this.dispose();
+        });
+        panelFinishedButtons.add(buttonNewOrder);
+        panelFinished.add(panelFinishedButtons);
+
         // Build panel and add to window
         panel.add(itemArea);
         panel.add(panelButtons);
+        panel.add(panelFinished);
+
         getContentPane().add(panel);
     }
 
     private void updateItemDisplay() {
+        // Create copy of list and sort it
+        var orderedItems = new ArrayList<>(order.getItems());
+        orderedItems.sort(Comparator.comparingInt(Item::getPrice));
+        // Prepare output
         StringBuilder sb = new StringBuilder();
-        for (Item item : order.getItems()) {
-            sb.append("%s - %s\n".formatted(StringFormatterUtil.formatPrice(item.getPrice()), item.getName()));
+        for (Item item : orderedItems) {
+            sb.append(AvailableWriters.getItemWriter(item.getClass()).writeItem(item));
+            sb.append(System.lineSeparator());
         }
+        // Print output to text area
         itemArea.setText(sb.toString());
     }
 
@@ -84,5 +122,20 @@ public class OrderWindow extends JFrame {
 
         this.order = orderService.initializeOrder();
         this.build();
+    }
+
+    private void onFinishOrder() {
+        // Finish order
+        orderService.finalizeOrder(order);
+        labelTotalPrice.setText("Total price: %s".formatted(
+                StringFormatterUtil.formatPrice(order.getLumpSum())
+        ));
+        labelCheckoutDate.setText("Checkout date: %s".formatted(
+                StringFormatterUtil.formatDate(order.getCheckoutTimestamp())
+        ));
+
+        // Switch UI
+        panelButtons.setVisible(false);
+        panelFinished.setVisible(true);
     }
 }

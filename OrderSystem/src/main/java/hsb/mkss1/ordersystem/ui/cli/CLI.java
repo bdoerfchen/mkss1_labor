@@ -9,9 +9,10 @@ import hsb.mkss1.ordersystem.service.OrderService;
 import hsb.mkss1.ordersystem.ui.OrderUserInterface;
 import hsb.mkss1.ordersystem.ui.cli.reader.IProductReader;
 import hsb.mkss1.ordersystem.ui.cli.reader.IServiceReader;
-import hsb.mkss1.ordersystem.ui.cli.writer.ItemWriter;
-import hsb.mkss1.ordersystem.ui.cli.writer.ProductWriter;
-import hsb.mkss1.ordersystem.ui.cli.writer.ServiceWriter;
+import hsb.mkss1.ordersystem.ui.writer.AvailableWriters;
+import hsb.mkss1.ordersystem.ui.writer.ItemWriter;
+import hsb.mkss1.ordersystem.ui.writer.ProductWriter;
+import hsb.mkss1.ordersystem.ui.writer.ServiceWriter;
 import hsb.mkss1.ordersystem.util.Input;
 import hsb.mkss1.ordersystem.util.StringFormatterUtil;
 
@@ -23,11 +24,6 @@ public class CLI implements OrderUserInterface {
     private IProductReader productReader;
     private IServiceReader serviceReader;
     private OrderService orderService;
-
-    private final Map<Class<? extends Item>, ItemWriter<? extends Item>> itemWriters = Map.of(
-            SimpleProduct.class, new ProductWriter(),
-            SimpleService.class, new ServiceWriter()
-    );
 
     public void open() {
         boolean run = true;
@@ -68,17 +64,13 @@ public class CLI implements OrderUserInterface {
     private void printOrder(Order order) {
         IO.println("-----------------------");
         for (Item item : order.getItems()) {
-            getItemWriter(item.getClass()).writeItem(item);
+            IO.println(AvailableWriters.getItemWriter(item.getClass()).writeItem(item));
         }
         IO.println("-----------------------");
-        IO.println("Sum: " + StringFormatterUtil.formatPrice(order.getLumpSum()));
+        IO.println("Total price: " + StringFormatterUtil.formatPrice(order.getLumpSum()));
+        IO.println("Checkout date: " + StringFormatterUtil.formatDate(order.getCheckoutTimestamp()));
         IO.println("=======================");
         IO.println("");
-    }
-
-    @SuppressWarnings("unchecked")
-    private ItemWriter<Item> getItemWriter(Class<? extends Item> clazz) {
-        return (ItemWriter<Item>) itemWriters.get(clazz);
     }
 
     public void setItemFactory(ItemFactory itemFactory) {

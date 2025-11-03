@@ -27,11 +27,14 @@ public class SimpleProduct extends AbstractProduct {
     }
 
     @Override
-    public int getQuantity()
-    {
+    public int getQuantity() {
         return quantity;
     }
 
+    @Override
+    public int getUnitPrice() {
+        return unitPrice;
+    }
 }
 
 

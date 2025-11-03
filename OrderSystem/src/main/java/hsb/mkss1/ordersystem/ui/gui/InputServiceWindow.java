@@ -15,9 +15,6 @@ public class InputServiceWindow extends JDialog {
         setTitle("Add Service");
         setSize(250, 400);
 
-        // Set the default close operation
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
