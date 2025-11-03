@@ -32,10 +32,6 @@ public class Order {
         return Collections.unmodifiableList(items);
     }
 
-    public void sort() {
-        items.sort(Comparator.comparingInt(Item::getPrice));
-    }
-
     public void setCheckoutTimestamp(LocalDateTime checkoutTimestamp) {
         this.checkoutTimestamp = checkoutTimestamp;
     }

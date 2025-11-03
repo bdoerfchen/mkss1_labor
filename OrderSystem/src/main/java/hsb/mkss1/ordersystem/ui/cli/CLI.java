@@ -16,7 +16,9 @@ import hsb.mkss1.ordersystem.ui.writer.ServiceWriter;
 import hsb.mkss1.ordersystem.util.Input;
 import hsb.mkss1.ordersystem.util.StringFormatterUtil;
 
+import java.util.Comparator;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CLI implements OrderUserInterface {
 
@@ -45,7 +47,6 @@ public class CLI implements OrderUserInterface {
                 }
             } while (input != 0);
             orderService.finalizeOrder(order);
-            order.sort();
             printOrder(order);
             IO.println("Would you like to make another order? (true | false)");
             run = Input.readBoolean();
@@ -63,9 +64,11 @@ public class CLI implements OrderUserInterface {
 
     private void printOrder(Order order) {
         IO.println("-----------------------");
-        for (Item item : order.getItems()) {
-            IO.println(AvailableWriters.getItemWriter(item.getClass()).writeItem(item));
-        }
+        var outputText = order.getItems().stream()
+                .sorted(Comparator.comparingInt(Item::getPrice))
+                .map(item -> AvailableWriters.getItemWriter(item.getClass()).writeItem(item))
+                .collect(Collectors.joining(System.lineSeparator()));
+        IO.println(outputText);
         IO.println("-----------------------");
         IO.println("Total price: " + StringFormatterUtil.formatPrice(order.getLumpSum()));
         IO.println("Checkout date: " + StringFormatterUtil.formatDate(order.getCheckoutTimestamp()));

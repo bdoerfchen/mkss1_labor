@@ -7,7 +7,7 @@ public class ProductWriter implements ItemWriter<AbstractProduct> {
 
     @Override
     public String writeItem(AbstractProduct product) {
-        return "%s - %s (%dx à %s)".formatted(
+        return "%15s - %s (%dx à %s)".formatted(
                 StringFormatterUtil.formatPrice(product.getPrice()),
                 product.getName(),
                 product.getQuantity(),

@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class OrderWindow extends JFrame {
 
@@ -103,17 +104,13 @@ public class OrderWindow extends JFrame {
     }
 
     private void updateItemDisplay() {
-        // Create copy of list and sort it
-        var orderedItems = new ArrayList<>(order.getItems());
-        orderedItems.sort(Comparator.comparingInt(Item::getPrice));
         // Prepare output
-        StringBuilder sb = new StringBuilder();
-        for (Item item : orderedItems) {
-            sb.append(AvailableWriters.getItemWriter(item.getClass()).writeItem(item));
-            sb.append(System.lineSeparator());
-        }
+        var outputText = order.getItems().stream()
+                .sorted(Comparator.comparingInt(Item::getPrice))
+                .map(item -> AvailableWriters.getItemWriter(item.getClass()).writeItem(item))
+                .collect(Collectors.joining(System.lineSeparator()));
         // Print output to text area
-        itemArea.setText(sb.toString());
+        itemArea.setText(outputText);
     }
 
     public OrderWindow(ItemFactory itemFactory, OrderService orderService) {
