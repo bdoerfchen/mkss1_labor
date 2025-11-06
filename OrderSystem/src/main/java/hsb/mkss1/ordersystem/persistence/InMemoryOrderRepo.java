@@ -16,7 +16,7 @@ public class InMemoryOrderRepo implements OrderRepo {
             order.setId(idCounter++);
         }
 
-        entries.put(order.getId(), order);
+        entries.put(order.getId(), order.createCopy());
     }
 
     @Override
