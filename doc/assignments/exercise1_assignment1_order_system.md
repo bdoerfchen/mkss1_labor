@@ -30,6 +30,6 @@
     4. ui
 2. Infinite orders
     1. New while loop
-    2. Reset products and services after each order is printed
+    2. Reset products and services after each orderEntity is printed
 3. Refactor
     1. Use records for model

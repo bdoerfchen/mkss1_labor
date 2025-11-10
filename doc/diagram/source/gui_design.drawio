@@ -22,7 +22,7 @@
         <mxCell id="19" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="250" y="360" width="390" height="260" as="geometry" />
         </mxCell>
-        <mxCell id="22" value="Start new order" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="22" value="Start new orderEntity" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="510" y="590" width="110" height="20" as="geometry" />
         </mxCell>
         <mxCell id="23" value="200€ - Joghurt (2000x à 0,10€)&lt;br&gt;100€ - Putzen (4h x 5 Persons)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
