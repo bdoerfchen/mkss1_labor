@@ -134,6 +134,21 @@ class OwnerController {
 		return owners.findByLastNameStartingWith(lastname, pageable);
 	}
 
+	@GetMapping("/owners/{ownerId}/delete")
+	public String deleteOwnerAndRedirect(@Valid Owner owner, BindingResult result, @PathVariable("ownerId") int ownerId,
+										 RedirectAttributes redirectAttributes) {
+
+		if (!Objects.equals(owner.getId(), ownerId)) {
+			result.rejectValue("id", "mismatch", "The owner ID in the form does not match the URL.");
+			redirectAttributes.addFlashAttribute("error", "Owner ID mismatch. Please try again.");
+			return "redirect:/owners/{ownerId}/edit";
+		}
+
+		this.owners.delete(owner);
+		redirectAttributes.addFlashAttribute("message", "Owner delete");
+		return "redirect:/owners/find";
+	}
+
 	@GetMapping("/owners/{ownerId}/edit")
 	public String initUpdateOwnerForm() {
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;

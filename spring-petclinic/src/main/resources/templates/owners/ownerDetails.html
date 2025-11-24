@@ -28,15 +28,24 @@
       <td th:text="*{city}"></td>
     </tr>
     <tr>
+      <th th:text="#{zipCode}">City</th>
+      <td th:text="*{zipCode}"></td>
+    </tr>
+    <tr>
       <th th:text="#{telephone}">Telephone</th>
       <td th:text="*{telephone}"></td>
     </tr>
   </table>
 
-  <a th:href="@{__${owner.id}__/edit}" class="btn btn-primary" th:text="#{editOwner}">Edit
-    Owner</a>
-  <a th:href="@{__${owner.id}__/pets/new}" class="btn btn-primary" th:text="#{addNewPet}">Add
-    New Pet</a>
+  <a th:href="@{__${owner.id}__/edit}" class="btn btn-primary" th:text="#{editOwner}">
+    Edit Owner
+  </a>
+  <a th:href="@{__${owner.id}__/delete}" class="btn btn-primary" th:text="#{deleteOwner}">
+    Delete Owner
+  </a>
+  <a th:href="@{__${owner.id}__/pets/new}" class="btn btn-primary" th:text="#{addNewPet}">
+    Add New Pet
+  </a>
 
   <br />
   <br />
@@ -62,15 +71,19 @@
             <tr>
               <th th:text="#{visitDate}">Visit Date</th>
               <th th:text="#{description}">Description</th>
+              <th th:text="#{vet}">Veterinarian</th>
             </tr>
           </thead>
           <tr th:each="visit : ${pet.visits}">
             <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
             <td th:text="${visit?.description}"></td>
+            <td th:text="${visit?.veterinarian.toString()}"></td>
+
           </tr>
           <tr>
             <td><a th:href="@{__${owner.id}__/pets/__${pet.id}__/edit}" th:text="#{editPet}">Edit Pet</a></td>
             <td><a th:href="@{__${owner.id}__/pets/__${pet.id}__/visits/new}" th:text="#{addVisit}">Add Visit</a></td>
+            <td></td>
           </tr>
         </table>
       </td>

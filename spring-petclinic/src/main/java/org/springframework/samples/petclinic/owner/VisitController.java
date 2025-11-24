@@ -15,9 +15,12 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.samples.petclinic.vet.Vet;
+import org.springframework.samples.petclinic.vet.VetRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -42,9 +45,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 class VisitController {
 
 	private final OwnerRepository owners;
+	private final VetRepository vets;
 
-	public VisitController(OwnerRepository owners) {
+	public VisitController(OwnerRepository owners, VetRepository vets) {
 		this.owners = owners;
+		this.vets = vets;
+	}
+
+	@ModelAttribute("vets")
+	public Collection<Vet> populateVets() {
+		return this.vets.findAll();
 	}
 
 	@InitBinder

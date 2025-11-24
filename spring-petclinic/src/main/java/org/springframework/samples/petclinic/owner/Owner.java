@@ -57,6 +57,10 @@ public class Owner extends Person {
 	@NotBlank
 	private @Nullable String city;
 
+	@Column(name = "zip_code")
+	@NotBlank
+	private @Nullable String zipCode;
+
 	@Column(name = "telephone")
 	@NotBlank
 	@Pattern(regexp = "\\d{10}", message = "{telephone.invalid}")
@@ -73,6 +77,14 @@ public class Owner extends Person {
 
 	public void setAddress(@Nullable String address) {
 		this.address = address;
+	}
+
+	public @Nullable String getZipCode() {
+		return this.zipCode;
+	}
+
+	public void setZipCode(@Nullable String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	public @Nullable String getCity() {
@@ -153,6 +165,7 @@ public class Owner extends Person {
 			.append("firstName", this.getFirstName())
 			.append("address", this.address)
 			.append("city", this.city)
+			.append("zipCode", this.zipCode)
 			.append("telephone", this.telephone)
 			.toString();
 	}

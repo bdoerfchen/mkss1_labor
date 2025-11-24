@@ -15,23 +15,17 @@
  */
 package org.springframework.samples.petclinic.vet;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.samples.petclinic.model.NamedEntity;
 import org.springframework.samples.petclinic.model.Person;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlElement;
 import org.jspecify.annotations.Nullable;
+import org.springframework.samples.petclinic.owner.Pet;
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
