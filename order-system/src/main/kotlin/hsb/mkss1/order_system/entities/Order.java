@@ -23,6 +23,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    private OrderStatusEnum status = OrderStatusEnum.EMPTY;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy ="order", fetch = FetchType.EAGER)
     private List<Item> items = new ArrayList<>();

@@ -5,6 +5,7 @@ package hsb.mkss1.order_system.usecases;
 import hsb.mkss1.order_system.entities.ItemRepo;
 import hsb.mkss1.order_system.entities.Order;
 import hsb.mkss1.order_system.entities.OrderRepo;
+import hsb.mkss1.order_system.entities.OrderStatusEnum;
 import hsb.mkss1.order_system.usecases.dtos.InitializeOrderTemplate;
 import hsb.mkss1.order_system.usecases.dtos.ItemDto;
 import hsb.mkss1.order_system.usecases.dtos.ItemTemplate;
@@ -39,9 +40,17 @@ public class OrderService implements OrderHandler {
 
         var entity = optionalEntity.get();
 
+        if (isNotModifiable(entity)) {
+            throw new IllegalStateException("Order no more modifiable");
+        }
+
         var item = ItemMapper.mapTemplateToEntity(itemTemplate);
         item.setOrder(entity);
         itemRepo.save(item);
+
+        entity.setStatus(OrderStatusEnum.IN_PREPARATION);
+        orderRepo.save(entity);
+
         return ItemMapper.mapEntityToDTO(item);
     }
 
@@ -56,6 +65,10 @@ public class OrderService implements OrderHandler {
 
         var entity = optionalEntity.get();
 
+        if (entity.getStatus() != OrderStatusEnum.IN_PREPARATION) {
+            throw new IllegalStateException("Order not in preparation status");
+        }
+
         entity.setCheckoutTimestamp(LocalDateTime.now());
         orderRepo.save(entity);
         return OrderMapper.mapEntityToDTO(entity);
@@ -65,6 +78,7 @@ public class OrderService implements OrderHandler {
     public OrderDto initializeOrder(InitializeOrderTemplate template) {
         var order = new Order();
         order.setCustomerName(template.getCustomerName());
+        order.setStatus(OrderStatusEnum.EMPTY);
         orderRepo.save(order);
         return OrderMapper.mapEntityToDTO(order);
     }
@@ -76,6 +90,10 @@ public class OrderService implements OrderHandler {
             throw new NoSuchElementException("Order with id " + orderId + " not found");
         }
         var order = optionalOrder.get();
+
+        if (order.getStatus() != OrderStatusEnum.IN_PREPARATION) {
+            throw new IllegalStateException("Order not in preparation status");
+        }
 
         var optionalItem = itemRepo.findById(itemId);
         if (optionalItem.isEmpty()) {
@@ -89,6 +107,14 @@ public class OrderService implements OrderHandler {
         }
 
         itemRepo.deleteById(itemId);
+
+        orderRepo.findById(orderId)
+                .ifPresent(order1 -> {
+                    if (order1.getItems().isEmpty()) {
+                        order1.setStatus(OrderStatusEnum.EMPTY);
+                        orderRepo.save(order1);
+                    }
+                });
 
     }
 
@@ -121,5 +147,9 @@ public class OrderService implements OrderHandler {
                 .stream()
                 .map(OrderMapper::mapEntityToDTO)
                 .toList();
+    }
+
+    private static boolean isNotModifiable(Order order) {
+        return order.getStatus() != OrderStatusEnum.EMPTY && order.getStatus() != OrderStatusEnum.IN_PREPARATION;
     }
 }

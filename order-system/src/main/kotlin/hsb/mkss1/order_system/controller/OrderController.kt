@@ -46,6 +46,11 @@ class OrderController(val orderHandler: OrderHandler) {
         return orderHandler.deleteOrder(orderId)
     }
 
+    @PutMapping(value = ["/{orderId}/status"])
+    fun commit(@PathVariable orderId : UUID) {
+        return orderHandler.deleteOrder(orderId)
+    }
+
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE], value = ["/{orderId}"])
     fun getById(@PathVariable orderId: UUID): OrderDto {
