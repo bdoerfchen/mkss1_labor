@@ -47,7 +47,7 @@ public class OrderService implements OrderHandler {
 
     @Override
     @Transactional
-    public void finalizeOrder(UUID orderId) {
+    public OrderDto finalizeOrder(UUID orderId) {
         var optionalEntity = orderRepo.findById(orderId);
 
         if (optionalEntity.isEmpty()) {
@@ -58,6 +58,7 @@ public class OrderService implements OrderHandler {
 
         entity.setCheckoutTimestamp(LocalDateTime.now());
         orderRepo.save(entity);
+        return OrderMapper.mapEntityToDTO(entity);
     }
 
     @Override

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.repository.cdi.Eager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy ="order")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy ="order", fetch = FetchType.EAGER)
     private List<Item> items = new ArrayList<>();
     private LocalDateTime checkoutTimestamp;
     private Integer lumpSum = 0;

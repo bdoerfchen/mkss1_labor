@@ -12,7 +12,7 @@ public interface OrderHandler {
 
     ItemDto addItemToOrder(UUID orderId, ItemTemplate itemTemplate);
 
-    void finalizeOrder(UUID orderId);
+    OrderDto finalizeOrder(UUID orderId);
 
     OrderDto initializeOrder(InitializeOrderTemplate template);
 
