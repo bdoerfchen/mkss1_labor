@@ -1,0 +1,507 @@
+{
+	"info": {
+		"_postman_id": "6d6c1b05-70ba-431c-a055-32e498c26c8b",
+		"name": "Order System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45499703",
+		"_collection_link": "https://okangezmen.postman.co/workspace/Okan-Gezmen's-Workspace~0c0351d4-5adf-4cc0-8e7a-806962e007ec/collection/45499703-6d6c1b05-70ba-431c-a055-32e498c26c8b?action=share&source=collection_link&creator=45499703"
+	},
+	"item": [
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "{orderId}",
+					"item": [
+						{
+							"name": "items",
+							"item": [
+								{
+									"name": "{itemId}",
+									"item": [
+										{
+											"name": "add Item To Order 2",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/orders/:orderId/items/:itemId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"orders",
+														":orderId",
+														"items",
+														":itemId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "303e37ec-7999-4fff-577a-7dcf58c5d74f"
+														},
+														{
+															"key": "itemId",
+															"value": "303e37ec-7999-4fff-577a-7dcf58c5d74f"
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/orders/:orderId/items/:itemId",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"orders",
+																":orderId",
+																"items",
+																":itemId"
+															],
+															"variable": [
+																{
+																	"key": "orderId",
+																	"value": "303e37ec-7999-4fff-577a-7dcf58c5d74f"
+																},
+																{
+																	"key": "itemId",
+																	"value": "303e37ec-7999-4fff-577a-7dcf58c5d74f"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": ""
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "add Item To Order",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId/items?name=string&price=6850&quantity=3478",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId",
+												"items"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "string"
+												},
+												{
+													"key": "price",
+													"value": "6850"
+												},
+												{
+													"key": "quantity",
+													"value": "3478"
+												}
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "303e37ec-7999-4fff-577a-7dcf58c5d74f"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/orders/:orderId/items?name=string&price=6850&quantity=3478",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"orders",
+														":orderId",
+														"items"
+													],
+													"query": [
+														{
+															"key": "name",
+															"value": "string"
+														},
+														{
+															"key": "price",
+															"value": "6850"
+														},
+														{
+															"key": "quantity",
+															"value": "3478"
+														}
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "303e37ec-7999-4fff-577a-7dcf58c5d74f"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"80690ed1-4574-e71a-e03f-29902a226c0f\",\n  \"name\": \"string\",\n  \"price\": 2958,\n  \"quantity\": 1681\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "get By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/orders/:orderId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"orders",
+										":orderId"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "303e37ec-7999-4fff-577a-7dcf58c5d74f"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "303e37ec-7999-4fff-577a-7dcf58c5d74f"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"customerName\": \"string\",\n  \"id\": \"63580db0-8180-094a-69f6-064c180bcd88\",\n  \"items\": [\n    {\n      \"id\": \"0dca5ec0-5eef-49f5-a963-ebcf04d6ffc2\",\n      \"name\": \"string\",\n      \"price\": 655,\n      \"quantity\": 9199\n    },\n    {\n      \"id\": \"d1425d54-ac15-f46c-7d53-b21254eee5e0\",\n      \"name\": \"string\",\n      \"price\": 1958,\n      \"quantity\": 9084\n    }\n  ],\n  \"lumpSum\": 4140,\n  \"checkoutTimestamp\": \"2025-07-15T17:59:05.415Z\"\n}"
+								}
+							]
+						},
+						{
+							"name": "add Item To Order 1",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/orders/:orderId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"orders",
+										":orderId"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "303e37ec-7999-4fff-577a-7dcf58c5d74f"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "303e37ec-7999-4fff-577a-7dcf58c5d74f"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"customerName\": \"string\",\n    \"id\": \"570f8fce-f672-766d-f2e3-93805eb00ae0\",\n    \"items\": [\n      {\n        \"id\": \"54def7c7-8a18-f4b7-d8cd-8a6a2d47aee5\",\n        \"name\": \"string\",\n        \"price\": 805,\n        \"quantity\": 8325\n      },\n      {\n        \"id\": \"8bde7324-a8ea-a633-207e-0a182cee4bd3\",\n        \"name\": \"string\",\n        \"price\": 7816,\n        \"quantity\": 2372\n      }\n    ],\n    \"lumpSum\": 785,\n    \"checkoutTimestamp\": \"2019-03-20T23:37:11.873Z\"\n  },\n  {\n    \"customerName\": \"string\",\n    \"id\": \"15f2e7f2-0453-a8a0-55cf-7d0180560040\",\n    \"items\": [\n      {\n        \"id\": \"28ee8e41-8d79-e512-8670-3727dbaf6ee9\",\n        \"name\": \"string\",\n        \"price\": 7555,\n        \"quantity\": 6720\n      },\n      {\n        \"id\": \"906cba31-5a1c-6963-500e-a35340944686\",\n        \"name\": \"string\",\n        \"price\": 965,\n        \"quantity\": 210\n      }\n    ],\n    \"lumpSum\": 2921,\n    \"checkoutTimestamp\": \"1969-11-27T17:25:53.377Z\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "post Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders?customerName=string",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "customerName",
+									"value": "string"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/orders?customerName=string",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"orders"
+									],
+									"query": [
+										{
+											"key": "customerName",
+											"value": "string"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"customerName\": \"string\",\n  \"id\": \"63580db0-8180-094a-69f6-064c180bcd88\",\n  \"items\": [\n    {\n      \"id\": \"0dca5ec0-5eef-49f5-a963-ebcf04d6ffc2\",\n      \"name\": \"string\",\n      \"price\": 655,\n      \"quantity\": 9199\n    },\n    {\n      \"id\": \"d1425d54-ac15-f46c-7d53-b21254eee5e0\",\n      \"name\": \"string\",\n      \"price\": 1958,\n      \"quantity\": 9084\n    }\n  ],\n  \"lumpSum\": 4140,\n  \"checkoutTimestamp\": \"2025-07-15T17:59:05.415Z\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "status",
+			"item": [
+				{
+					"name": "get Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"status"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"status"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "string"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
