@@ -30,9 +30,9 @@ class OrderController(val orderHandler: OrderHandler) {
     }
 
 
-    @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], value = ["/{id}/items"])
-    fun addItemToOrder(@PathVariable id : UUID, template: ItemTemplate): ItemDto {
-        return orderHandler.addItemToOrder(id,template)
+    @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], value = ["/{orderId}/items"])
+    fun addItemToOrder(@PathVariable orderId : UUID, template: ItemTemplate): ItemDto {
+        return orderHandler.addItemToOrder(orderId,template)
     }
 
 
@@ -47,10 +47,10 @@ class OrderController(val orderHandler: OrderHandler) {
     }
 
 
-    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE], value = ["/{id}"])
-    fun getById(@PathVariable id: UUID): OrderDto {
+    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE], value = ["/{orderId}"])
+    fun getById(@PathVariable orderId: UUID): OrderDto {
         try {
-            return orderHandler.getById(id)
+            return orderHandler.getById(orderId)
         }
         catch (e: NoSuchElementException) {
             throw ResponseStatusException(
