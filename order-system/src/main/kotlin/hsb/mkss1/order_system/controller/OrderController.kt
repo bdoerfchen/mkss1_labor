@@ -35,6 +35,10 @@ class OrderController(val orderHandler: OrderHandler) {
             throw ResponseStatusException(
                 HttpStatus.NOT_FOUND, "No order with id $orderId found"
             )
+        } catch (_: IllegalStateException) {
+            throw ResponseStatusException(
+                HttpStatus.BAD_REQUEST, "Order with id $orderId cannot be modified"
+            )
         }
     }
 

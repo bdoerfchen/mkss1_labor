@@ -55,9 +55,10 @@ public class CLI  {
             run = Input.readBoolean();
         }
 
-        for(OrderDto order : orderService.getAll()){
-            printOrder(order);
-        }
+        orderService.getAll()
+                .stream()
+                .filter(orderDto -> orderDto.getCheckoutTimestamp() != null)
+                .forEach(this::printOrder);
     }
 
     private void printMenu() {
