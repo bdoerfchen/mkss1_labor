@@ -16,9 +16,6 @@ import java.util.*
 @RequestMapping("/orders")
 class OrderController(val orderHandler: OrderHandler) {
 
-
-
-
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllOrders(): List<OrderDto> {
        return orderHandler.getAll()
@@ -32,23 +29,51 @@ class OrderController(val orderHandler: OrderHandler) {
 
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], value = ["/{orderId}/items"])
     fun addItemToOrder(@PathVariable orderId : UUID, template: ItemTemplate): ItemDto {
-        return orderHandler.addItemToOrder(orderId,template)
+        try {
+            return orderHandler.addItemToOrder(orderId,template)
+        } catch (_: NoSuchElementException) {
+            throw ResponseStatusException(
+                HttpStatus.NOT_FOUND, "No order with id $orderId found"
+            )
+        }
     }
 
 
     @DeleteMapping(value = ["/{orderId}/items/{itemId}"])
     fun addItemToOrder(@PathVariable orderId : UUID, @PathVariable itemId : UUID) {
-        return orderHandler.removeItemFromOrder(orderId,itemId)
+        try {
+            return orderHandler.removeItemFromOrder(orderId,itemId)
+        } catch (_: NoSuchElementException) {
+            throw ResponseStatusException(
+                HttpStatus.NOT_FOUND, "No order with id $orderId found"
+            )
+        }
     }
 
     @DeleteMapping(value = ["/{orderId}"])
     fun addItemToOrder(@PathVariable orderId : UUID) {
-        return orderHandler.deleteOrder(orderId)
+        try {
+            return orderHandler.deleteOrder(orderId)
+        } catch (_: NoSuchElementException) {
+            throw ResponseStatusException(
+                HttpStatus.NOT_FOUND, "No order with id $orderId found"
+            )
+        }
     }
 
     @PutMapping(value = ["/{orderId}/purchase"])
-    fun commit(@PathVariable orderId : UUID) {
-        return orderHandler.deleteOrder(orderId)
+    fun commit(@PathVariable orderId : UUID): OrderDto? {
+        try {
+            return orderHandler.finalizeOrder(orderId)
+        } catch (_: NoSuchElementException) {
+            throw ResponseStatusException(
+                HttpStatus.NOT_FOUND, "No order with id $orderId found"
+            )
+        } catch (_: IllegalStateException) {
+            throw ResponseStatusException(
+                HttpStatus.BAD_REQUEST, "Order with id $orderId cannot be finalized"
+            )
+        }
     }
 
 
@@ -56,10 +81,9 @@ class OrderController(val orderHandler: OrderHandler) {
     fun getById(@PathVariable orderId: UUID): OrderDto {
         try {
             return orderHandler.getById(orderId)
-        }
-        catch (e: NoSuchElementException) {
+        } catch (_: NoSuchElementException) {
             throw ResponseStatusException(
-                HttpStatus.NOT_FOUND, "not found"
+                HttpStatus.NOT_FOUND, "No order with id $orderId found"
             )
         }
     }
