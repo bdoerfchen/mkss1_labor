@@ -8,17 +8,16 @@ import hsb.mkss1.order_system.usecases.dtos.InitializeOrderTemplate;
 import hsb.mkss1.order_system.usecases.dtos.ItemDto;
 import hsb.mkss1.order_system.usecases.dtos.ItemTemplate;
 import hsb.mkss1.order_system.usecases.dtos.OrderDto;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@SuppressWarnings("java:S106") // Requirement to use System.out in CLI since it is a command line user interface
 public class CLI  {
 
 
@@ -26,28 +25,24 @@ public class CLI  {
 
     private final OrderHandler orderService;
 
-    private OrderDto currentOrderDto;
-
-    private String customerName;
-
 
     public void open() {
         boolean run = true;
         System.out.println("Please enter your name: ");
-        customerName = Input.readString();
+        String customerName = Input.readString();
 
         while (run) {
 
             var orderTemplate = new InitializeOrderTemplate(customerName);
-            currentOrderDto = orderService.initializeOrder(orderTemplate);
+            OrderDto currentOrderDto = orderService.initializeOrder(orderTemplate);
             int input;
             do {
                 printMenu();
                 input = Input.readInt();
-                ItemTemplate itemTemplate = switch (input) {
-                    case 1 -> itemReader.readLineItem();
-                    default -> null;
-                };
+                ItemTemplate itemTemplate = input == 1
+                    ? itemReader.readLineItem()
+                    : null;
+
                 if (itemTemplate != null) {
                     orderService.addItemToOrder(currentOrderDto.getId(), itemTemplate);
                 } else if (input != 0) {
@@ -80,9 +75,10 @@ public class CLI  {
         System.out.println(outputText);
         System.out.println("-----------------------");
         System.out.println("Total price: " + StringFormatterUtil.formatPrice(orderDTO.getLumpSum()));
-        System.out.println("Checkout date: " + StringFormatterUtil.formatDate(orderDTO.getCheckoutTimestamp()));
+        System.out.println("Checkout date: " + StringFormatterUtil.formatDate(
+                Objects.requireNonNull(orderDTO.getCheckoutTimestamp())));
         System.out.println("=======================");
-        System.out.println("");
+        System.out.println();
     }
 
 }

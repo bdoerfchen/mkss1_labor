@@ -1,12 +1,11 @@
 package hsb.mkss1.order_system.adapters.cli.reader;
 
 import hsb.mkss1.order_system.adapters.cli.util.Input;
-import hsb.mkss1.order_system.usecases.dtos.ItemDto;
 import hsb.mkss1.order_system.usecases.dtos.ItemTemplate;
-import jakarta.validation.constraints.Null;
 import org.springframework.stereotype.Component;
 
 @Component
+@SuppressWarnings("java:S106") // Requirement to use System.out in CLI since it is a command line user interface
 public class SimpleLineItemReader implements ILineItemReader {
 
     public ItemTemplate readLineItem() {
