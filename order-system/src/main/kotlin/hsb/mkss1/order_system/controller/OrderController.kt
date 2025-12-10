@@ -46,7 +46,7 @@ class OrderController(val orderHandler: OrderHandler) {
         return orderHandler.deleteOrder(orderId)
     }
 
-    @PutMapping(value = ["/{orderId}/status"])
+    @PutMapping(value = ["/{orderId}/purchase"])
     fun commit(@PathVariable orderId : UUID) {
         return orderHandler.deleteOrder(orderId)
     }

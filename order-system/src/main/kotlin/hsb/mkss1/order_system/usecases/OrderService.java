@@ -70,6 +70,8 @@ public class OrderService implements OrderHandler {
         }
 
         entity.setCheckoutTimestamp(LocalDateTime.now());
+        entity.setStatus(OrderStatusEnum.COMMITED);
+
         orderRepo.save(entity);
         return OrderMapper.mapEntityToDTO(entity);
     }
