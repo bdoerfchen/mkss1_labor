@@ -65,8 +65,8 @@ class OrderController(val orderHandler: OrderHandler) {
         }
     }
 
-    @PutMapping(value = ["/{orderId}/purchase"])
-    fun commit(@PathVariable orderId : UUID): OrderDto? {
+    @PutMapping(value = ["/{orderId}/purchases"])
+    fun commitPurchase(@PathVariable orderId : UUID): OrderDto? {
         try {
             return orderHandler.finalizeOrder(orderId)
         } catch (_: NoSuchElementException) {
