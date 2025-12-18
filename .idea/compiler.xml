@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="warehouse" />
         <module name="events" />
         <module name="order-system" />
       </profile>
@@ -50,6 +51,7 @@
       <module name="spring-petclinic" options="-parameters -XDcompilePolicy=simple --should-stop=ifError=FLOW &quot;-Xplugin:ErrorProne -XepDisableAllChecks -Xep:NullAway:ERROR -XepOpt:NullAway:OnlyNullMarked=true -XepOpt:NullAway:CustomContractAnnotations=org.springframework.lang.Contract -XepOpt:NullAway:JSpecifyMode=true&quot;" />
       <module name="spring-petclinic.main" options="-parameters -XDcompilePolicy=simple --should-stop=ifError=FLOW &quot;-Xplugin:ErrorProne -XepDisableAllChecks -Xep:NullAway:ERROR -XepOpt:NullAway:OnlyNullMarked=true -XepOpt:NullAway:CustomContractAnnotations=org.springframework.lang.Contract -XepOpt:NullAway:JSpecifyMode=true&quot;" />
       <module name="spring-petclinic.test" options="-parameters" />
+      <module name="warehouse" options="-parameters" />
     </option>
   </component>
 </project>

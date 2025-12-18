@@ -50,7 +50,7 @@ public class OrderEventsProducer implements CrudEventProducer<OrderDto> {
 	}
 
     private void emitEventWithType(Event.EventType type, OrderDto payload) {
-        EventWithPayload<OrderDto> event = new EventWithPayload<>(type, payload);
+        EventWithPayload<OrderDto> event = buildEvent(type, payload);
         amqpTemplate.convertAndSend(orderSystemExchange, orderSystemRoutingKey, event);
         log.info("Sent event = {} using exchange {} with routing key {}", event, orderSystemExchange, orderSystemRoutingKey);
     }

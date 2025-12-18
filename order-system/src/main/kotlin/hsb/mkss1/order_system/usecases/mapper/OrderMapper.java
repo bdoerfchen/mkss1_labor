@@ -20,16 +20,24 @@ public class OrderMapper {
                 .map(ItemMapper::mapEntityToDTO)
                 .toList();
 
-        return new OrderDto(entity.getId(), lineItemDTOs, entity.getLumpSum(), entity.getCheckoutTimestamp(), entity.getCustomerName());
+
+        return new OrderDto(entity.getId(),
+                lineItemDTOs,
+                entity.getLumpSum(),
+                entity.getCheckoutTimestamp(),
+                entity.getStatus(),
+                entity.getCustomerName()
+        );
     }
 
 
     public static Order mapDtoToEntity(OrderDto dto) {
         return new Order(dto.getId(),
-                OrderStatusEnum.EMPTY,
+                dto.getStatus(),
                 new ArrayList<>(),
                 dto.getCheckoutTimestamp(),
                 dto.getLumpSum(),
-                dto.getCustomerName());
+                dto.getCustomerName()
+        );
     }
 }
