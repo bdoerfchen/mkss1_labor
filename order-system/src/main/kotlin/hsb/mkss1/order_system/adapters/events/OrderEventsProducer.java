@@ -1,15 +1,15 @@
-package de.hsbremen.mkss.restservice.events;
+package hsb.mkss1.order_system.adapters.events;
 
 import de.hsbremen.mkss.events.CrudEventProducer;
 import de.hsbremen.mkss.events.Event;
 import de.hsbremen.mkss.events.EventWithPayload;
+import hsb.mkss1.order_system.usecases.dtos.OrderDto;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class XYZEventsProducer implements CrudEventProducer<YourPayloadClass> {
+public class OrderEventsProducer implements CrudEventProducer<OrderDto> {
 
 	private AmqpTemplate amqpTemplate;
 
@@ -20,13 +20,13 @@ public class XYZEventsProducer implements CrudEventProducer<YourPayloadClass> {
     String aRoutingKeyName;
 
 
-	public XYZEventsProducer(AmqpTemplate amqpTemplate) {
+	public OrderEventsProducer(AmqpTemplate amqpTemplate) {
 		this.amqpTemplate = amqpTemplate;
 	}
 
 
-	private EventWithPayload<YourPayloadClass> buildEvent(Event.EventType type, YourPayloadClass payload) {
-		EventWithPayload<YourPayloadClass> event = EventWithPayload.<YourPayloadClass> builder()
+	private EventWithPayload<OrderDto> buildEvent(Event.EventType type, OrderDto payload) {
+		EventWithPayload<OrderDto> event = EventWithPayload.<OrderDto> builder()
 				.type(type)
 				.payload(payload)
 				.build();
@@ -34,22 +34,23 @@ public class XYZEventsProducer implements CrudEventProducer<YourPayloadClass> {
 	}
 
 	@Override
-	public void emitCreateEvent(YourPayloadClass payload) {
+	public void emitCreateEvent(OrderDto payload) {
 		// TODO: Implementation for create events (e.g. new order)
-		EventWithPayload<YourPayloadClass> event = buildEvent(...);
-	
-		// TODO: send event to RabbitMQ exchange  
+		EventWithPayload<OrderDto> event = new EventWithPayload<>(Event.EventType.CREATED, payload);
+
+		// TODO: send event to RabbitMQ exchange
+
 
 		System.out.println("Sent event = " + event + " using exchange " + anExchangeName + " with routing key " + aRoutingKeyName);
 	}
 
 	@Override
-	public void emitUpdateEvent(YourPayloadClass payload) {
+	public void emitUpdateEvent(OrderDto payload) {
 		// TODO: Implementation for update events (e.g. changed order)
 	}
 
 	@Override
-	public void emitDeleteEvent(YourPayloadClass payload) {
+	public void emitDeleteEvent(OrderDto payload) {
 		// TODO: Implementation for delete events (e.g. deleted order)
 	}
 }

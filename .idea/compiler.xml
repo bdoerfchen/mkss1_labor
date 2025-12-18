@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="events" />
         <module name="order-system" />
       </profile>
       <profile name="Annotation profile for petclinic" enabled="true">

@@ -1,4 +1,4 @@
-package de.hsbremen.mkss.restservice.config;
+package hsb.mkss1.order_system.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

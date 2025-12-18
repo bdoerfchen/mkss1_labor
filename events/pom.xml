@@ -9,24 +9,14 @@
     --> 
 
     <!-- Configuration, if top-level _Maven_ project exists --> 
-    <!-- (Adapt to fit your top-level project!) --> 
-
-    <parent>
-        <artifactId>MKSS-Demo</artifactId>
-        <groupId>de.hs-bremen.mkss</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>events</artifactId>
-    <modelVersion>4.0.0</modelVersion>
-
-
-    <!-- Configuration, if there is no top-level _Maven_ project --> 
+    <!-- (Adapt to fit your top-level project!) -->
     <artifactId>events</artifactId>
     <groupId>de.hs-bremen.mkss</groupId>
-    <version>1.0-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-    <!-- 
+    <!--
         End of configuration alternatives.
     --> 
 
@@ -37,6 +27,7 @@
         <!-- Dependency versions --> 
         <jackson-version>2.19.2</jackson-version>
         <lombok-version>1.18.38</lombok-version>
+    </properties>
 
     <dependencies>
         <!-- JSON Processing -->
