@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MediaPresentations/MediaPresentations.iml" filepath="$PROJECT_DIR$/MediaPresentations/MediaPresentations.iml" />
-      <module fileurl="file://$PROJECT_DIR$/OrderSystem/OrderSystem.iml" filepath="$PROJECT_DIR$/OrderSystem/OrderSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/UniversalRemoteControl/UniversalRemoteControl.iml" filepath="$PROJECT_DIR$/UniversalRemoteControl/UniversalRemoteControl.iml" />
       <module fileurl="file://$PROJECT_DIR$/mkss1.iml" filepath="$PROJECT_DIR$/mkss1.iml" />
     </modules>
