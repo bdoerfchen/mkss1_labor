@@ -25,7 +25,7 @@ public class StringFormatterUtil {
 
     public static String formatLineItem(ItemDto dto) {
         return "%15s - %s (%dx à %s)".formatted(
-                StringFormatterUtil.formatPrice(dto.getPrice()),
+                StringFormatterUtil.formatPrice(dto.getPrice()*dto.getQuantity()),
                 dto.getName(),
                 dto.getQuantity(),
                 StringFormatterUtil.formatPrice(dto.getPrice())

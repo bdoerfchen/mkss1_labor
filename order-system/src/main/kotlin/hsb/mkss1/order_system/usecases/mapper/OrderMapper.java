@@ -19,10 +19,13 @@ public class OrderMapper {
                 .map(ItemMapper::mapEntityToDTO)
                 .toList();
 
+        var lumpSum = lineItemDTOs.stream()
+                .mapToInt(item -> item.getPrice()*item.getQuantity())
+                .sum();
 
         return new OrderDto(entity.getId(),
                 lineItemDTOs,
-                entity.getLumpSum(),
+                lumpSum,
                 entity.getCheckoutTimestamp(),
                 StatusMapper.mapEntityToDTO(entity.getStatus()),
                 entity.getCustomerName()
@@ -35,7 +38,6 @@ public class OrderMapper {
                 StatusMapper.mapDtoToEntity(dto.getStatus()),
                 new ArrayList<>(),
                 dto.getCheckoutTimestamp(),
-                dto.getLumpSum(),
                 dto.getCustomerName()
         );
     }
