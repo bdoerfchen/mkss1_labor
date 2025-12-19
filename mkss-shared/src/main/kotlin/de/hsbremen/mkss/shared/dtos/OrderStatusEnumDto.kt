@@ -1,6 +1,6 @@
-package hsb.mkss1.warehouse.usecases.dtos
+package de.hsbremen.mkss.shared.dtos
 
-enum class OrderStatusEnum {
+enum class OrderStatusEnumDto {
     EMPTY,
     IN_PREPARATION,
     COMMITED,

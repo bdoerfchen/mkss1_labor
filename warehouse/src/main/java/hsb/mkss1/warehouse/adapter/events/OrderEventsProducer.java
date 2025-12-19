@@ -3,7 +3,7 @@ package hsb.mkss1.warehouse.adapter.events;
 import de.hsbremen.mkss.events.CrudEventProducer;
 import de.hsbremen.mkss.events.Event;
 import de.hsbremen.mkss.events.EventWithPayload;
-import hsb.mkss1.warehouse.usecases.dtos.OrderEventDto;
+import de.hsbremen.mkss.shared.dtos.OrderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class OrderEventsProducer implements CrudEventProducer<OrderEventDto> {
+public class OrderEventsProducer implements CrudEventProducer<OrderDto> {
 
 	private AmqpTemplate amqpTemplate;
 
@@ -27,30 +27,30 @@ public class OrderEventsProducer implements CrudEventProducer<OrderEventDto> {
 	}
 
 
-	private EventWithPayload<OrderEventDto> buildEvent(Event.EventType type, OrderEventDto payload) {
-		return EventWithPayload.<OrderEventDto> builder()
+	private EventWithPayload<OrderDto> buildEvent(Event.EventType type, OrderDto payload) {
+		return EventWithPayload.<OrderDto> builder()
 				.type(type)
 				.payload(payload)
 				.build();
 	}
 
 	@Override
-	public void emitCreateEvent(OrderEventDto payload) {
+	public void emitCreateEvent(OrderDto payload) {
         emitEventWithType(Event.EventType.CREATED, payload);
 	}
 
 	@Override
-	public void emitUpdateEvent(OrderEventDto payload) {
+	public void emitUpdateEvent(OrderDto payload) {
         emitEventWithType(Event.EventType.CHANGED, payload);
 	}
 
 	@Override
-	public void emitDeleteEvent(OrderEventDto payload) {
+	public void emitDeleteEvent(OrderDto payload) {
         emitEventWithType(Event.EventType.DELETED, payload);
 	}
 
-    private void emitEventWithType(Event.EventType type, OrderEventDto payload) {
-        EventWithPayload<OrderEventDto> event = buildEvent(type, payload);
+    private void emitEventWithType(Event.EventType type, OrderDto payload) {
+        EventWithPayload<OrderDto> event = buildEvent(type, payload);
         amqpTemplate.convertAndSend(warehouseExchange, warehouseRoutingKey, event);
         log.info("Sent event = {} using exchange {} with routing key {}", event, warehouseExchange, warehouseRoutingKey);
     }

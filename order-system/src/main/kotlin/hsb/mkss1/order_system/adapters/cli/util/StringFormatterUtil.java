@@ -1,6 +1,6 @@
 package hsb.mkss1.order_system.adapters.cli.util;
 
-import hsb.mkss1.order_system.usecases.dtos.ItemDto;
+import de.hsbremen.mkss.shared.dtos.ItemDto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

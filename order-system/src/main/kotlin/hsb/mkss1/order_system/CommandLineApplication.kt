@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-
 class CommandLineApplication(val cli : CLI) : CommandLineRunner {
 
 

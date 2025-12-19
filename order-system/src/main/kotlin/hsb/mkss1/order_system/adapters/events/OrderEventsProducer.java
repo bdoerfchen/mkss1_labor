@@ -3,7 +3,7 @@ package hsb.mkss1.order_system.adapters.events;
 import de.hsbremen.mkss.events.CrudEventProducer;
 import de.hsbremen.mkss.events.Event;
 import de.hsbremen.mkss.events.EventWithPayload;
-import hsb.mkss1.order_system.usecases.dtos.OrderDto;
+import de.hsbremen.mkss.shared.dtos.OrderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Value;

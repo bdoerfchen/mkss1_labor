@@ -1,12 +1,12 @@
 package hsb.mkss1.order_system.controller
 
+import de.hsbremen.mkss.events.EventWithPayload
+import de.hsbremen.mkss.shared.dtos.*
 import hsb.mkss1.order_system.usecases.OrderHandler
-import hsb.mkss1.order_system.usecases.dtos.InitializeOrderTemplate
-import hsb.mkss1.order_system.usecases.dtos.ItemDto
-import hsb.mkss1.order_system.usecases.dtos.ItemTemplate
-import hsb.mkss1.order_system.usecases.dtos.OrderDto
+import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import java.util.*
@@ -14,7 +14,7 @@ import java.util.*
 
 @RestController
 @RequestMapping("/orders")
-class OrderController(val orderHandler: OrderHandler) {
+class RestOrderController(val orderHandler: OrderHandler) {
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getAllOrders(): List<OrderDto> {

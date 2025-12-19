@@ -1,10 +1,8 @@
 package hsb.mkss1.order_system.usecases.mapper;
 
 import hsb.mkss1.order_system.entities.Item;
-import hsb.mkss1.order_system.usecases.dtos.ItemDto;
-import hsb.mkss1.order_system.usecases.dtos.ItemTemplate;
-
-import java.util.UUID;
+import de.hsbremen.mkss.shared.dtos.ItemDto;
+import de.hsbremen.mkss.shared.dtos.ItemTemplate;
 
 public class ItemMapper {
 

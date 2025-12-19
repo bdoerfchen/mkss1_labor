@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/events-library/pom.xml" />
         <option value="$PROJECT_DIR$/events/pom.xml" />
         <option value="$PROJECT_DIR$/warehouse/pom.xml" />
+        <option value="$PROJECT_DIR$/mkss-shared/pom.xml" />
       </list>
     </option>
   </component>

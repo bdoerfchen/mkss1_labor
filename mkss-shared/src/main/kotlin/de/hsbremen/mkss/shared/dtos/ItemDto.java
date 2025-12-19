@@ -1,0 +1,19 @@
+package de.hsbremen.mkss.shared.dtos;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.UUID;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class ItemDto {
+    private UUID id;
+    private String name;
+    private int price;
+    private int  quantity;
+}

@@ -7,6 +7,11 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="mavenCentral" />
+      <option name="name" value="mavenCentral" />
+      <option name="url" value="https://repo1.maven.org/maven2/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="gitlab-maven-hsb-bdw-backend" />
       <option name="name" value="gitlab-maven-hsb-bdw-backend" />
       <option name="url" value="https://gitlab.com/api/v4/projects/41612588/packages/maven" />

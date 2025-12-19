@@ -1,6 +1,4 @@
-package hsb.mkss1.order_system.usecases.dtos
-
-import java.util.UUID
+package de.hsbremen.mkss.shared.dtos
 
 data class ItemTemplate(val name: String,
                         val price: Int,

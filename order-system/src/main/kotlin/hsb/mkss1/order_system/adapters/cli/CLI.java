@@ -4,10 +4,10 @@ import hsb.mkss1.order_system.adapters.cli.reader.ILineItemReader;
 import hsb.mkss1.order_system.adapters.cli.util.Input;
 import hsb.mkss1.order_system.adapters.cli.util.StringFormatterUtil;
 import hsb.mkss1.order_system.usecases.OrderHandler;
-import hsb.mkss1.order_system.usecases.dtos.InitializeOrderTemplate;
-import hsb.mkss1.order_system.usecases.dtos.ItemDto;
-import hsb.mkss1.order_system.usecases.dtos.ItemTemplate;
-import hsb.mkss1.order_system.usecases.dtos.OrderDto;
+import de.hsbremen.mkss.shared.dtos.InitializeOrderTemplate;
+import de.hsbremen.mkss.shared.dtos.ItemDto;
+import de.hsbremen.mkss.shared.dtos.ItemTemplate;
+import de.hsbremen.mkss.shared.dtos.OrderDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
