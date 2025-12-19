@@ -27,7 +27,6 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, mappedBy ="order", fetch = FetchType.EAGER)
     private List<Item> items = new ArrayList<>();
     private LocalDateTime checkoutTimestamp;
-    private Integer lumpSum = 0;
     private String customerName;
 
 

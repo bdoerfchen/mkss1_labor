@@ -1,7 +1,7 @@
 package hsb.mkss1.order_system.adapters.cli.reader;
 
 import hsb.mkss1.order_system.adapters.cli.util.Input;
-import hsb.mkss1.order_system.usecases.dtos.ItemTemplate;
+import de.hsbremen.mkss.shared.dtos.ItemTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
