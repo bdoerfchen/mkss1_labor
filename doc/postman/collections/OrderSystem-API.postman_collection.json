@@ -1,0 +1,933 @@
+{
+	"info": {
+		"_postman_id": "13ee219c-ef9c-46eb-aded-aeebeb485d36",
+		"name": "OrderSystem API",
+		"description": "A system to order items\n\nContact Support:\n Name: Max Mustermann\n Email: max.mustermann@hs-bremen.de",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45499703",
+		"_collection_link": "https://okangezmen.postman.co/workspace/Okan-Gezmen's-Workspace~0c0351d4-5adf-4cc0-8e7a-806962e007ec/collection/45499703-13ee219c-ef9c-46eb-aded-aeebeb485d36?action=share&source=collection_link&creator=45499703"
+	},
+	"item": [
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "{orderId}",
+					"item": [
+						{
+							"name": "items",
+							"item": [
+								{
+									"name": "Add item to order",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId/items?name=Bread&price=100&quantity=5",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId",
+												"items"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "Bread",
+													"description": "(Required) "
+												},
+												{
+													"key": "price",
+													"value": "100",
+													"description": "(Required) "
+												},
+												{
+													"key": "quantity",
+													"value": "5",
+													"description": "(Required) "
+												}
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+													"description": "(Required) Unique identifier of the order"
+												}
+											]
+										},
+										"description": "Create a new item and add it to the specified order"
+									},
+									"response": [
+										{
+											"name": "Content of added item",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/orders/:orderId/items?name=Bread&price=100&quantity=5",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"orders",
+														":orderId",
+														"items"
+													],
+													"query": [
+														{
+															"key": "name",
+															"value": "Bread"
+														},
+														{
+															"key": "price",
+															"value": "100"
+														},
+														{
+															"key": "quantity",
+															"value": "5"
+														}
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+															"description": "(Required) Unique identifier of the order"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"name\": \"Bread\",\n  \"price\": 100,\n  \"quantity\": 5\n}"
+										},
+										{
+											"name": "Order cannot be modified",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/orders/:orderId/items?name=Bread&price=100&quantity=5",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"orders",
+														":orderId",
+														"items"
+													],
+													"query": [
+														{
+															"key": "name",
+															"value": "Bread"
+														},
+														{
+															"key": "price",
+															"value": "100"
+														},
+														{
+															"key": "quantity",
+															"value": "5"
+														}
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+															"description": "(Required) Unique identifier of the order"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"error\": \"Not Found\",\n  \"path\": \"/test\",\n  \"status\": 404,\n  \"timestamp\": \"2026-01-11T11:54:50.867Z\",\n  \"reason\": \"Can not find item by id\"\n}"
+										},
+										{
+											"name": "Specified order not found",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/orders/:orderId/items?name=Bread&price=100&quantity=5",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"orders",
+														":orderId",
+														"items"
+													],
+													"query": [
+														{
+															"key": "name",
+															"value": "Bread"
+														},
+														{
+															"key": "price",
+															"value": "100"
+														},
+														{
+															"key": "quantity",
+															"value": "5"
+														}
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+															"description": "(Required) Unique identifier of the order"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"error\": \"Not Found\",\n  \"path\": \"/test\",\n  \"status\": 404,\n  \"timestamp\": \"2026-01-11T11:54:50.867Z\",\n  \"reason\": \"Can not find item by id\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete an item",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId/items/:itemId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId",
+												"items",
+												":itemId"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "3fa85f64-5717-4562-b3fc-2c963f66afa5",
+													"description": "(Required) The id of the order the item is a part of"
+												},
+												{
+													"key": "itemId",
+													"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+													"description": "(Required) The id of the item that is to be deleted"
+												}
+											]
+										},
+										"description": "Removes the item with the given id from the order"
+									},
+									"response": [
+										{
+											"name": "Successfully deleted the item",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/orders/:orderId/items/:itemId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"orders",
+														":orderId",
+														"items",
+														":itemId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "3fa85f64-5717-4562-b3fc-2c963f66afa5",
+															"description": "(Required) The id of the order the item is a part of"
+														},
+														{
+															"key": "itemId",
+															"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+															"description": "(Required) The id of the item that is to be deleted"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "No such item or order was found",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/orders/:orderId/items/:itemId",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"orders",
+														":orderId",
+														"items",
+														":itemId"
+													],
+													"variable": [
+														{
+															"key": "orderId",
+															"value": "3fa85f64-5717-4562-b3fc-2c963f66afa5",
+															"description": "(Required) The id of the order the item is a part of"
+														},
+														{
+															"key": "itemId",
+															"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+															"description": "(Required) The id of the item that is to be deleted"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"error\": \"Not Found\",\n  \"path\": \"/test\",\n  \"status\": 404,\n  \"timestamp\": \"2026-01-11T11:54:50.867Z\",\n  \"reason\": \"Can not find item by id\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Get Order by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/orders/:orderId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"orders",
+										":orderId"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "urn:uuid:392dd5ad-91b9-da83-793c-27e2355d56e5",
+											"description": "(Required) ID of order"
+										}
+									]
+								},
+								"description": "Get information about a single order by its ID"
+							},
+							"response": [
+								{
+									"name": "Content of order",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "urn:uuid:392dd5ad-91b9-da83-793c-27e2355d56e5",
+													"description": "(Required) ID of order"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"checkoutTimestamp\": \"2026-01-11T11:54:50.867Z\",\n  \"customerName\": \"Max Mustermann\",\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"items\": [\n    {\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"name\": \"Bread\",\n      \"price\": 100,\n      \"quantity\": 5\n    },\n    {\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"name\": \"Bread\",\n      \"price\": 100,\n      \"quantity\": 5\n    }\n  ],\n  \"lumpSum\": 5000,\n  \"status\": \"ACCEPTED\"\n}"
+								},
+								{
+									"name": "No order found with this id",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "urn:uuid:392dd5ad-91b9-da83-793c-27e2355d56e5",
+													"description": "(Required) ID of order"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": \"Not Found\",\n  \"path\": \"/test\",\n  \"status\": 404,\n  \"timestamp\": \"2026-01-11T11:54:50.867Z\",\n  \"reason\": \"Can not find item by id\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete an order",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/orders/:orderId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"orders",
+										":orderId"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+											"description": "(Required) The id of the order that is to be deleted"
+										}
+									]
+								},
+								"description": "Removes an order and all it's items from the system"
+							},
+							"response": [
+								{
+									"name": "Successfully deleted the order",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+													"description": "(Required) The id of the order that is to be deleted"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "No such order was found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+													"description": "(Required) The id of the order that is to be deleted"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": \"Not Found\",\n  \"path\": \"/test\",\n  \"status\": 404,\n  \"timestamp\": \"2026-01-11T11:54:50.867Z\",\n  \"reason\": \"Can not find item by id\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Purchase order",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/orders/:orderId/purchases",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"orders",
+										":orderId",
+										"purchases"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": "urn:uuid:afa0a4cc-3ec9-7e68-e4fa-95892047e7a3",
+											"description": "(Required) ID of order to purchase"
+										}
+									]
+								},
+								"description": "Request purchasing the order"
+							},
+							"response": [
+								{
+									"name": "Content of purchased order",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId/purchases",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId",
+												"purchases"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "urn:uuid:afa0a4cc-3ec9-7e68-e4fa-95892047e7a3",
+													"description": "(Required) ID of order to purchase"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"checkoutTimestamp\": \"2026-01-11T11:54:50.867Z\",\n  \"customerName\": \"Max Mustermann\",\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"items\": [\n    {\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"name\": \"Bread\",\n      \"price\": 100,\n      \"quantity\": 5\n    },\n    {\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"name\": \"Bread\",\n      \"price\": 100,\n      \"quantity\": 5\n    }\n  ],\n  \"lumpSum\": 5000,\n  \"status\": \"ACCEPTED\"\n}"
+								},
+								{
+									"name": "Order cannot be purchased",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId/purchases",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId",
+												"purchases"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "urn:uuid:afa0a4cc-3ec9-7e68-e4fa-95892047e7a3",
+													"description": "(Required) ID of order to purchase"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": \"Not Found\",\n  \"path\": \"/test\",\n  \"status\": 404,\n  \"timestamp\": \"2026-01-11T11:54:50.867Z\",\n  \"reason\": \"Can not find item by id\"\n}"
+								},
+								{
+									"name": "No order found with this id",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/orders/:orderId/purchases",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"orders",
+												":orderId",
+												"purchases"
+											],
+											"variable": [
+												{
+													"key": "orderId",
+													"value": "urn:uuid:afa0a4cc-3ec9-7e68-e4fa-95892047e7a3",
+													"description": "(Required) ID of order to purchase"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": \"Not Found\",\n  \"path\": \"/test\",\n  \"status\": 404,\n  \"timestamp\": \"2026-01-11T11:54:50.867Z\",\n  \"reason\": \"Can not find item by id\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get all orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						},
+						"description": "Get a list of all orders"
+					},
+					"response": [
+						{
+							"name": "List of all orders",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/orders",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"checkoutTimestamp\": \"2026-01-11T11:54:50.867Z\",\n    \"customerName\": \"Max Mustermann\",\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"items\": [\n      {\n        \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"name\": \"Bread\",\n        \"price\": 100,\n        \"quantity\": 5\n      },\n      {\n        \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"name\": \"Bread\",\n        \"price\": 100,\n        \"quantity\": 5\n      }\n    ],\n    \"lumpSum\": 5000,\n    \"status\": \"ACCEPTED\"\n  },\n  {\n    \"checkoutTimestamp\": \"2026-01-11T11:54:50.867Z\",\n    \"customerName\": \"Max Mustermann\",\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n    \"items\": [\n      {\n        \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"name\": \"Bread\",\n        \"price\": 100,\n        \"quantity\": 5\n      },\n      {\n        \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n        \"name\": \"Bread\",\n        \"price\": 100,\n        \"quantity\": 5\n      }\n    ],\n    \"lumpSum\": 5000,\n    \"status\": \"ACCEPTED\"\n  }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/orders?customerName=Max Mustermann",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "customerName",
+									"value": "Max Mustermann",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Create a new empty order"
+					},
+					"response": [
+						{
+							"name": "Content of new initialized order",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/orders?customerName=Max Mustermann",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"orders"
+									],
+									"query": [
+										{
+											"key": "customerName",
+											"value": "Max Mustermann"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"checkoutTimestamp\": \"2026-01-11T11:54:50.867Z\",\n  \"customerName\": \"Max Mustermann\",\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"items\": [\n    {\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"name\": \"Bread\",\n      \"price\": 100,\n      \"quantity\": 5\n    },\n    {\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n      \"name\": \"Bread\",\n      \"price\": 100,\n      \"quantity\": 5\n    }\n  ],\n  \"lumpSum\": 5000,\n  \"status\": \"ACCEPTED\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Get system Status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "text/plain"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/status",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"status"
+					]
+				},
+				"description": "Endpoint to check the status of the Order System."
+			},
+			"response": [
+				{
+					"name": "System is up",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"status"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": "Lo"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
