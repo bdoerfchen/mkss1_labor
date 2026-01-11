@@ -24,7 +24,7 @@ class RestOrderController(val orderHandler: OrderHandler) {
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Get all orders", description = "Get a list of all orders")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "200", description = "Success"),
+        ApiResponse(responseCode = "200", description = "List of all orders"),
     ])
     fun getAllOrders(): List<OrderDto> {
        return orderHandler.getAll()
@@ -33,7 +33,7 @@ class RestOrderController(val orderHandler: OrderHandler) {
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(summary = "Create order", description = "Create a new empty order")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "200", description = "Success"),
+        ApiResponse(responseCode = "200", description = "Content of new initialized order"),
     ])
     fun postOrder(template: InitializeOrderTemplate): OrderDto {
         return orderHandler.initializeOrder(template)
@@ -43,7 +43,7 @@ class RestOrderController(val orderHandler: OrderHandler) {
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], value = ["/{orderId}/items"])
     @Operation(summary = "Add item to order", description = "Create a new item and add it to the specified order")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "200", description = "Success"),
+        ApiResponse(responseCode = "200", description = "Content of added item"),
         ApiResponse(responseCode = "400", description = "Order cannot be modified",
             content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
         ApiResponse(responseCode = "404", description = "Specified order not found",
@@ -115,8 +115,8 @@ class RestOrderController(val orderHandler: OrderHandler) {
     @PutMapping(value = ["/{orderId}/purchases"])
     @Operation(summary = "Purchase order", description = "Request purchasing the order")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "200", description = "Success"),
-        ApiResponse(responseCode = "400", description = "Order cannot be finalized",
+        ApiResponse(responseCode = "200", description = "Content of purchased order"),
+        ApiResponse(responseCode = "400", description = "Order cannot be purchased",
             content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
         ApiResponse(responseCode = "404", description = "No order found with this id",
             content = [Content(schema = Schema(implementation = ErrorResponse::class))])
@@ -142,7 +142,7 @@ class RestOrderController(val orderHandler: OrderHandler) {
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE], value = ["/{orderId}"])
     @Operation(summary = "Get Order by ID", description = "Get information about a single order by its ID")
     @ApiResponses(value = [
-        ApiResponse(responseCode = "200", description = "Success"),
+        ApiResponse(responseCode = "200", description = "Content of order"),
         ApiResponse(responseCode = "404", description = "No order found with this id",
             content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
     ])
