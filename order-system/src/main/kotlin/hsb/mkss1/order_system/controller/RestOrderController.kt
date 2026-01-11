@@ -1,8 +1,10 @@
 package hsb.mkss1.order_system.controller
 
 import de.hsbremen.mkss.shared.dtos.*
+import hsb.mkss1.order_system.controller.errors.ErrorResponse
 import hsb.mkss1.order_system.usecases.OrderHandler
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
@@ -15,7 +17,7 @@ import java.util.*
 
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/orders", produces = [MediaType.APPLICATION_JSON_VALUE])
 @Tag(name = "Orders", description = "Actions related to orders")
 class RestOrderController(val orderHandler: OrderHandler) {
 
@@ -23,7 +25,6 @@ class RestOrderController(val orderHandler: OrderHandler) {
     @Operation(summary = "Get all orders", description = "Get a list of all orders")
     @ApiResponses(value = [
         ApiResponse(responseCode = "200", description = "Success"),
-        ApiResponse(responseCode = "400", description = "Bad request")
     ])
     fun getAllOrders(): List<OrderDto> {
        return orderHandler.getAll()
@@ -43,8 +44,10 @@ class RestOrderController(val orderHandler: OrderHandler) {
     @Operation(summary = "Add item to order", description = "Create a new item and add it to the specified order")
     @ApiResponses(value = [
         ApiResponse(responseCode = "200", description = "Success"),
-        ApiResponse(responseCode = "400", description = "Order cannot be modified"),
-        ApiResponse(responseCode = "404", description = "Specified order not found"),
+        ApiResponse(responseCode = "400", description = "Order cannot be modified",
+            content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
+        ApiResponse(responseCode = "404", description = "Specified order not found",
+            content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
     ])
     fun addItemToOrder(
         @Schema(description = "Unique identifier of the order", example = "3fa85f64-5717-4562-b3fc-2c963f66afa6")
@@ -69,7 +72,8 @@ class RestOrderController(val orderHandler: OrderHandler) {
     @Operation(summary = "Delete an item", description = "Removes the item with the given id from the order")
     @ApiResponses(value = [
         ApiResponse(responseCode = "200", description = "Successfully deleted the item"),
-        ApiResponse(responseCode = "404", description = "No such item or order was found")
+        ApiResponse(responseCode = "404", description = "No such item or order was found",
+            content = [Content(schema = Schema(implementation = ErrorResponse::class))])
     ])
     fun deleteItemFromOrder(
         @Schema(description = "The id of the order the item is a part of",
@@ -92,7 +96,8 @@ class RestOrderController(val orderHandler: OrderHandler) {
     @Operation(summary = "Delete an order", description = "Removes an order and all it's items from the system")
     @ApiResponses(value = [
         ApiResponse(responseCode = "200", description = "Successfully deleted the order"),
-        ApiResponse(responseCode = "404", description = "No such order was found")
+        ApiResponse(responseCode = "404", description = "No such order was found",
+            content = [Content(schema = Schema(implementation = ErrorResponse::class))])
     ])
     fun deleteOrder(
         @Schema(description = "The id of the order that is to be deleted",
@@ -108,7 +113,18 @@ class RestOrderController(val orderHandler: OrderHandler) {
     }
 
     @PutMapping(value = ["/{orderId}/purchases"])
-    fun commitPurchase(@PathVariable orderId : UUID): OrderDto? {
+    @Operation(summary = "Purchase order", description = "Request purchasing the order")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Success"),
+        ApiResponse(responseCode = "400", description = "Order cannot be finalized",
+            content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
+        ApiResponse(responseCode = "404", description = "No order found with this id",
+            content = [Content(schema = Schema(implementation = ErrorResponse::class))])
+    ])
+    fun commitPurchase(
+        @Schema(description = "ID of order to purchase")
+        @PathVariable orderId : UUID
+    ): OrderDto? {
         try {
             return orderHandler.finalizeOrder(orderId)
         } catch (_: NoSuchElementException) {
@@ -124,7 +140,16 @@ class RestOrderController(val orderHandler: OrderHandler) {
 
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE], value = ["/{orderId}"])
-    fun getById(@PathVariable orderId: UUID): OrderDto {
+    @Operation(summary = "Get Order by ID", description = "Get information about a single order by its ID")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Success"),
+        ApiResponse(responseCode = "404", description = "No order found with this id",
+            content = [Content(schema = Schema(implementation = ErrorResponse::class))]),
+    ])
+    fun getById(
+        @Schema(description = "ID of order")
+        @PathVariable orderId: UUID
+    ): OrderDto {
         try {
             return orderHandler.getById(orderId)
         } catch (_: NoSuchElementException) {
