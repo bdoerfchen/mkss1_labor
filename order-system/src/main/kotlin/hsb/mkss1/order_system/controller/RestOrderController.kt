@@ -1,12 +1,13 @@
 package hsb.mkss1.order_system.controller
 
-import de.hsbremen.mkss.events.EventWithPayload
 import de.hsbremen.mkss.shared.dtos.*
 import hsb.mkss1.order_system.usecases.OrderHandler
-import org.springframework.amqp.rabbit.annotation.RabbitListener
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
-import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import java.util.*
@@ -14,9 +15,15 @@ import java.util.*
 
 @RestController
 @RequestMapping("/orders")
+@Tag(name = "Orders", description = "Actions related to orders")
 class RestOrderController(val orderHandler: OrderHandler) {
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Get all orders", description = "Get a list of all orders")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Success"),
+        ApiResponse(responseCode = "400", description = "Bad request")
+    ])
     fun getAllOrders(): List<OrderDto> {
        return orderHandler.getAll()
     }
