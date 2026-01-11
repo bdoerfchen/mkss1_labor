@@ -3,6 +3,7 @@ package hsb.mkss1.order_system.controller
 import de.hsbremen.mkss.shared.dtos.*
 import hsb.mkss1.order_system.usecases.OrderHandler
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -29,13 +30,27 @@ class RestOrderController(val orderHandler: OrderHandler) {
     }
 
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    @Operation(summary = "Create order", description = "Create a new empty order")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Success"),
+    ])
     fun postOrder(template: InitializeOrderTemplate): OrderDto {
         return orderHandler.initializeOrder(template)
     }
 
 
     @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], value = ["/{orderId}/items"])
-    fun addItemToOrder(@PathVariable orderId : UUID, template: ItemTemplate): ItemDto {
+    @Operation(summary = "Add item to order", description = "Create a new item and add it to the specified order")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Success"),
+        ApiResponse(responseCode = "400", description = "Order cannot be modified"),
+        ApiResponse(responseCode = "404", description = "Specified order not found"),
+    ])
+    fun addItemToOrder(
+        @Schema(description = "Unique identifier of the order", example = "3fa85f64-5717-4562-b3fc-2c963f66afa6")
+        @PathVariable orderId : UUID,
+        template: ItemTemplate,
+    ): ItemDto {
         try {
             return orderHandler.addItemToOrder(orderId,template)
         } catch (_: NoSuchElementException) {
