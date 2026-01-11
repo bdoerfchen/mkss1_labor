@@ -145,7 +145,7 @@ public class OrderService implements OrderHandler {
 
         var optionalItem = itemRepo.findById(itemId);
         if (optionalItem.isEmpty()) {
-            throw new NoSuchElementException("Item with id " + orderId + " not found");
+            throw new NoSuchElementException("Item with id " + itemId + " not found");
         }
         var item = optionalItem.get();
 

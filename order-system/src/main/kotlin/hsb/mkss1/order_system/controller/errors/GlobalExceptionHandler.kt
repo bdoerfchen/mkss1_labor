@@ -11,13 +11,13 @@ import java.time.Instant
 class GlobalExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException::class)
-    fun handleResponseStatus(ex: ResponseStatusException, request: ServletWebRequest): ResponseEntity<Map<String, Any?>> {
-        val body = mapOf(
-            "timestamp" to Instant.now().toString(),
-            "status" to ex.statusCode.value(),
-            "error" to ex.statusCode.toString(),
-            "reason" to ex.reason,
-            "path" to request.request.requestURI
+    fun handleResponseStatus(ex: ResponseStatusException, request: ServletWebRequest): ResponseEntity<ErrorResponse> {
+        val body = ErrorResponse(
+            timestamp = Instant.now().toString(),
+            status = ex.statusCode.value(),
+            error = ex.statusCode.toString(),
+            reason = ex.reason,
+            path = request.request.requestURI
         )
         return ResponseEntity.status(ex.statusCode).body(body)
     }
