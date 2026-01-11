@@ -1,6 +1,6 @@
 package hsb.mkss1.order_system.adapters.cli.util;
 
-import hsb.mkss1.order_system.usecases.dtos.ItemDto;
+import de.hsbremen.mkss.shared.dtos.ItemDto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,7 +25,7 @@ public class StringFormatterUtil {
 
     public static String formatLineItem(ItemDto dto) {
         return "%15s - %s (%dx à %s)".formatted(
-                StringFormatterUtil.formatPrice(dto.getPrice()),
+                StringFormatterUtil.formatPrice(dto.getPrice()*dto.getQuantity()),
                 dto.getName(),
                 dto.getQuantity(),
                 StringFormatterUtil.formatPrice(dto.getPrice())

@@ -1,8 +1,7 @@
 package hsb.mkss1.order_system.usecases.mapper;
 
 import hsb.mkss1.order_system.entities.Order;
-import hsb.mkss1.order_system.entities.OrderStatusEnum;
-import hsb.mkss1.order_system.usecases.dtos.OrderDto;
+import de.hsbremen.mkss.shared.dtos.OrderDto;
 
 import java.util.ArrayList;
 
@@ -20,16 +19,26 @@ public class OrderMapper {
                 .map(ItemMapper::mapEntityToDTO)
                 .toList();
 
-        return new OrderDto(entity.getId(), lineItemDTOs, entity.getLumpSum(), entity.getCheckoutTimestamp(), entity.getCustomerName());
+        var lumpSum = lineItemDTOs.stream()
+                .mapToInt(item -> item.getPrice()*item.getQuantity())
+                .sum();
+
+        return new OrderDto(entity.getId(),
+                lineItemDTOs,
+                lumpSum,
+                entity.getCheckoutTimestamp(),
+                StatusMapper.mapEntityToDTO(entity.getStatus()),
+                entity.getCustomerName()
+        );
     }
 
 
     public static Order mapDtoToEntity(OrderDto dto) {
         return new Order(dto.getId(),
-                OrderStatusEnum.EMPTY,
+                StatusMapper.mapDtoToEntity(dto.getStatus()),
                 new ArrayList<>(),
                 dto.getCheckoutTimestamp(),
-                dto.getLumpSum(),
-                dto.getCustomerName());
+                dto.getCustomerName()
+        );
     }
 }

@@ -2,14 +2,15 @@ package hsb.mkss1.order_system.usecases;
 
 
 
+import de.hsbremen.mkss.events.CrudEventProducer;
 import hsb.mkss1.order_system.entities.ItemRepo;
 import hsb.mkss1.order_system.entities.Order;
 import hsb.mkss1.order_system.entities.OrderRepo;
 import hsb.mkss1.order_system.entities.OrderStatusEnum;
-import hsb.mkss1.order_system.usecases.dtos.InitializeOrderTemplate;
-import hsb.mkss1.order_system.usecases.dtos.ItemDto;
-import hsb.mkss1.order_system.usecases.dtos.ItemTemplate;
-import hsb.mkss1.order_system.usecases.dtos.OrderDto;
+import de.hsbremen.mkss.shared.dtos.InitializeOrderTemplate;
+import de.hsbremen.mkss.shared.dtos.ItemDto;
+import de.hsbremen.mkss.shared.dtos.ItemTemplate;
+import de.hsbremen.mkss.shared.dtos.OrderDto;
 import hsb.mkss1.order_system.usecases.mapper.ItemMapper;
 import hsb.mkss1.order_system.usecases.mapper.OrderMapper;
 import jakarta.transaction.Transactional;
@@ -27,6 +28,8 @@ public class OrderService implements OrderHandler {
 
     private final OrderRepo orderRepo;
     private final ItemRepo itemRepo;
+
+    private final CrudEventProducer<OrderDto> eventProducer;
 
 
     @Override
@@ -73,7 +76,50 @@ public class OrderService implements OrderHandler {
         entity.setStatus(OrderStatusEnum.COMMITED);
 
         orderRepo.save(entity);
-        return OrderMapper.mapEntityToDTO(entity);
+
+        var dto = OrderMapper.mapEntityToDTO(entity);
+        eventProducer.emitCreateEvent(dto);
+
+        return dto;
+    }
+
+    @Override
+    public void acceptOrder(UUID orderId) {
+        var optionalEntity = orderRepo.findById(orderId);
+        if (optionalEntity.isEmpty()) {
+            throw new NoSuchElementException("Order with id " + orderId + " not found");
+        }
+
+        var entity = optionalEntity.get();
+        if (entity.getStatus() == OrderStatusEnum.ACCEPTED) {
+            return;
+        }
+        if (entity.getStatus() != OrderStatusEnum.COMMITED) {
+            throw new IllegalStateException("Order not in commited status");
+        }
+
+        entity.setStatus(OrderStatusEnum.ACCEPTED);
+
+        orderRepo.save(entity);
+    }
+    @Override
+    public void rejectOrder(UUID orderId) {
+        var optionalEntity = orderRepo.findById(orderId);
+        if (optionalEntity.isEmpty()) {
+            throw new NoSuchElementException("Order with id " + orderId + " not found");
+        }
+
+        var entity = optionalEntity.get();
+        if (entity.getStatus() == OrderStatusEnum.REJECTED) {
+            return;
+        }
+        if (entity.getStatus() != OrderStatusEnum.COMMITED) {
+            throw new IllegalStateException("Order not in commited status");
+        }
+
+        entity.setStatus(OrderStatusEnum.REJECTED);
+
+        orderRepo.save(entity);
     }
 
     @Override
