@@ -51,7 +51,7 @@ class RestOrderController(val orderHandler: OrderHandler) {
 
 
     @DeleteMapping(value = ["/{orderId}/items/{itemId}"])
-    fun addItemToOrder(@PathVariable orderId : UUID, @PathVariable itemId : UUID) {
+    fun deleteItemFromOrder(@PathVariable orderId : UUID, @PathVariable itemId : UUID) {
         try {
             return orderHandler.removeItemFromOrder(orderId,itemId)
         } catch (_: NoSuchElementException) {
@@ -62,7 +62,7 @@ class RestOrderController(val orderHandler: OrderHandler) {
     }
 
     @DeleteMapping(value = ["/{orderId}"])
-    fun addItemToOrder(@PathVariable orderId : UUID) {
+    fun deleteOrder(@PathVariable orderId : UUID) {
         try {
             return orderHandler.deleteOrder(orderId)
         } catch (_: NoSuchElementException) {
