@@ -3,6 +3,7 @@ package hsb.mkss1.order_system.controller
 import de.hsbremen.mkss.shared.dtos.*
 import hsb.mkss1.order_system.usecases.OrderHandler
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -51,18 +52,38 @@ class RestOrderController(val orderHandler: OrderHandler) {
 
 
     @DeleteMapping(value = ["/{orderId}/items/{itemId}"])
-    fun deleteItemFromOrder(@PathVariable orderId : UUID, @PathVariable itemId : UUID) {
+    @Operation(summary = "Delete an item", description = "Removes the item with the given id from the order")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Successfully deleted the item"),
+        ApiResponse(responseCode = "404", description = "No such item or order was found")
+    ])
+    fun deleteItemFromOrder(
+        @Schema(description = "The id of the order the item is a part of",
+                example = "3fa85f64-5717-4562-b3fc-2c963f66afa5")
+        @PathVariable orderId : UUID,
+
+        @Schema(description = "The id of the item that is to be deleted",
+                example = "3fa85f64-5717-4562-b3fc-2c963f66afa6")
+        @PathVariable itemId : UUID) {
         try {
             return orderHandler.removeItemFromOrder(orderId,itemId)
         } catch (_: NoSuchElementException) {
             throw ResponseStatusException(
-                HttpStatus.NOT_FOUND, "No order with id $orderId found"
+                HttpStatus.NOT_FOUND, "No such item or order was found"
             )
         }
     }
 
     @DeleteMapping(value = ["/{orderId}"])
-    fun deleteOrder(@PathVariable orderId : UUID) {
+    @Operation(summary = "Delete an order", description = "Removes an order and all it's items from the system")
+    @ApiResponses(value = [
+        ApiResponse(responseCode = "200", description = "Successfully deleted the order"),
+        ApiResponse(responseCode = "404", description = "No such order was found")
+    ])
+    fun deleteOrder(
+        @Schema(description = "The id of the order that is to be deleted",
+                example = "3fa85f64-5717-4562-b3fc-2c963f66afa6")
+        @PathVariable orderId : UUID) {
         try {
             return orderHandler.deleteOrder(orderId)
         } catch (_: NoSuchElementException) {
